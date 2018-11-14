@@ -8,29 +8,6 @@ import (
 )
 
 type StageProductService struct {
-	StageStub        func(api.StageProductInput, string) error
-	stageMutex       sync.RWMutex
-	stageArgsForCall []struct {
-		arg1 api.StageProductInput
-		arg2 string
-	}
-	stageReturns struct {
-		result1 error
-	}
-	stageReturnsOnCall map[int]struct {
-		result1 error
-	}
-	ListDeployedProductsStub        func() ([]api.DeployedProductOutput, error)
-	listDeployedProductsMutex       sync.RWMutex
-	listDeployedProductsArgsForCall []struct{}
-	listDeployedProductsReturns     struct {
-		result1 []api.DeployedProductOutput
-		result2 error
-	}
-	listDeployedProductsReturnsOnCall map[int]struct {
-		result1 []api.DeployedProductOutput
-		result2 error
-	}
 	CheckProductAvailabilityStub        func(productName string, productVersion string) (bool, error)
 	checkProductAvailabilityMutex       sync.RWMutex
 	checkProductAvailabilityArgsForCall []struct {
@@ -56,100 +33,42 @@ type StageProductService struct {
 		result1 api.DiagnosticReport
 		result2 error
 	}
-	invocations      map[string][][]interface{}
-	invocationsMutex sync.RWMutex
-}
-
-func (fake *StageProductService) Stage(arg1 api.StageProductInput, arg2 string) error {
-	fake.stageMutex.Lock()
-	ret, specificReturn := fake.stageReturnsOnCall[len(fake.stageArgsForCall)]
-	fake.stageArgsForCall = append(fake.stageArgsForCall, struct {
+	ListDeployedProductsStub        func() ([]api.DeployedProductOutput, error)
+	listDeployedProductsMutex       sync.RWMutex
+	listDeployedProductsArgsForCall []struct{}
+	listDeployedProductsReturns     struct {
+		result1 []api.DeployedProductOutput
+		result2 error
+	}
+	listDeployedProductsReturnsOnCall map[int]struct {
+		result1 []api.DeployedProductOutput
+		result2 error
+	}
+	ListInstallationsStub        func() ([]api.InstallationsServiceOutput, error)
+	listInstallationsMutex       sync.RWMutex
+	listInstallationsArgsForCall []struct{}
+	listInstallationsReturns     struct {
+		result1 []api.InstallationsServiceOutput
+		result2 error
+	}
+	listInstallationsReturnsOnCall map[int]struct {
+		result1 []api.InstallationsServiceOutput
+		result2 error
+	}
+	StageStub        func(api.StageProductInput, string) error
+	stageMutex       sync.RWMutex
+	stageArgsForCall []struct {
 		arg1 api.StageProductInput
 		arg2 string
-	}{arg1, arg2})
-	fake.recordInvocation("Stage", []interface{}{arg1, arg2})
-	fake.stageMutex.Unlock()
-	if fake.StageStub != nil {
-		return fake.StageStub(arg1, arg2)
 	}
-	if specificReturn {
-		return ret.result1
-	}
-	return fake.stageReturns.result1
-}
-
-func (fake *StageProductService) StageCallCount() int {
-	fake.stageMutex.RLock()
-	defer fake.stageMutex.RUnlock()
-	return len(fake.stageArgsForCall)
-}
-
-func (fake *StageProductService) StageArgsForCall(i int) (api.StageProductInput, string) {
-	fake.stageMutex.RLock()
-	defer fake.stageMutex.RUnlock()
-	return fake.stageArgsForCall[i].arg1, fake.stageArgsForCall[i].arg2
-}
-
-func (fake *StageProductService) StageReturns(result1 error) {
-	fake.StageStub = nil
-	fake.stageReturns = struct {
+	stageReturns struct {
 		result1 error
-	}{result1}
-}
-
-func (fake *StageProductService) StageReturnsOnCall(i int, result1 error) {
-	fake.StageStub = nil
-	if fake.stageReturnsOnCall == nil {
-		fake.stageReturnsOnCall = make(map[int]struct {
-			result1 error
-		})
 	}
-	fake.stageReturnsOnCall[i] = struct {
+	stageReturnsOnCall map[int]struct {
 		result1 error
-	}{result1}
-}
-
-func (fake *StageProductService) ListDeployedProducts() ([]api.DeployedProductOutput, error) {
-	fake.listDeployedProductsMutex.Lock()
-	ret, specificReturn := fake.listDeployedProductsReturnsOnCall[len(fake.listDeployedProductsArgsForCall)]
-	fake.listDeployedProductsArgsForCall = append(fake.listDeployedProductsArgsForCall, struct{}{})
-	fake.recordInvocation("ListDeployedProducts", []interface{}{})
-	fake.listDeployedProductsMutex.Unlock()
-	if fake.ListDeployedProductsStub != nil {
-		return fake.ListDeployedProductsStub()
 	}
-	if specificReturn {
-		return ret.result1, ret.result2
-	}
-	return fake.listDeployedProductsReturns.result1, fake.listDeployedProductsReturns.result2
-}
-
-func (fake *StageProductService) ListDeployedProductsCallCount() int {
-	fake.listDeployedProductsMutex.RLock()
-	defer fake.listDeployedProductsMutex.RUnlock()
-	return len(fake.listDeployedProductsArgsForCall)
-}
-
-func (fake *StageProductService) ListDeployedProductsReturns(result1 []api.DeployedProductOutput, result2 error) {
-	fake.ListDeployedProductsStub = nil
-	fake.listDeployedProductsReturns = struct {
-		result1 []api.DeployedProductOutput
-		result2 error
-	}{result1, result2}
-}
-
-func (fake *StageProductService) ListDeployedProductsReturnsOnCall(i int, result1 []api.DeployedProductOutput, result2 error) {
-	fake.ListDeployedProductsStub = nil
-	if fake.listDeployedProductsReturnsOnCall == nil {
-		fake.listDeployedProductsReturnsOnCall = make(map[int]struct {
-			result1 []api.DeployedProductOutput
-			result2 error
-		})
-	}
-	fake.listDeployedProductsReturnsOnCall[i] = struct {
-		result1 []api.DeployedProductOutput
-		result2 error
-	}{result1, result2}
+	invocations      map[string][][]interface{}
+	invocationsMutex sync.RWMutex
 }
 
 func (fake *StageProductService) CheckProductAvailability(productName string, productVersion string) (bool, error) {
@@ -247,17 +166,154 @@ func (fake *StageProductService) GetDiagnosticReportReturnsOnCall(i int, result1
 	}{result1, result2}
 }
 
+func (fake *StageProductService) ListDeployedProducts() ([]api.DeployedProductOutput, error) {
+	fake.listDeployedProductsMutex.Lock()
+	ret, specificReturn := fake.listDeployedProductsReturnsOnCall[len(fake.listDeployedProductsArgsForCall)]
+	fake.listDeployedProductsArgsForCall = append(fake.listDeployedProductsArgsForCall, struct{}{})
+	fake.recordInvocation("ListDeployedProducts", []interface{}{})
+	fake.listDeployedProductsMutex.Unlock()
+	if fake.ListDeployedProductsStub != nil {
+		return fake.ListDeployedProductsStub()
+	}
+	if specificReturn {
+		return ret.result1, ret.result2
+	}
+	return fake.listDeployedProductsReturns.result1, fake.listDeployedProductsReturns.result2
+}
+
+func (fake *StageProductService) ListDeployedProductsCallCount() int {
+	fake.listDeployedProductsMutex.RLock()
+	defer fake.listDeployedProductsMutex.RUnlock()
+	return len(fake.listDeployedProductsArgsForCall)
+}
+
+func (fake *StageProductService) ListDeployedProductsReturns(result1 []api.DeployedProductOutput, result2 error) {
+	fake.ListDeployedProductsStub = nil
+	fake.listDeployedProductsReturns = struct {
+		result1 []api.DeployedProductOutput
+		result2 error
+	}{result1, result2}
+}
+
+func (fake *StageProductService) ListDeployedProductsReturnsOnCall(i int, result1 []api.DeployedProductOutput, result2 error) {
+	fake.ListDeployedProductsStub = nil
+	if fake.listDeployedProductsReturnsOnCall == nil {
+		fake.listDeployedProductsReturnsOnCall = make(map[int]struct {
+			result1 []api.DeployedProductOutput
+			result2 error
+		})
+	}
+	fake.listDeployedProductsReturnsOnCall[i] = struct {
+		result1 []api.DeployedProductOutput
+		result2 error
+	}{result1, result2}
+}
+
+func (fake *StageProductService) ListInstallations() ([]api.InstallationsServiceOutput, error) {
+	fake.listInstallationsMutex.Lock()
+	ret, specificReturn := fake.listInstallationsReturnsOnCall[len(fake.listInstallationsArgsForCall)]
+	fake.listInstallationsArgsForCall = append(fake.listInstallationsArgsForCall, struct{}{})
+	fake.recordInvocation("ListInstallations", []interface{}{})
+	fake.listInstallationsMutex.Unlock()
+	if fake.ListInstallationsStub != nil {
+		return fake.ListInstallationsStub()
+	}
+	if specificReturn {
+		return ret.result1, ret.result2
+	}
+	return fake.listInstallationsReturns.result1, fake.listInstallationsReturns.result2
+}
+
+func (fake *StageProductService) ListInstallationsCallCount() int {
+	fake.listInstallationsMutex.RLock()
+	defer fake.listInstallationsMutex.RUnlock()
+	return len(fake.listInstallationsArgsForCall)
+}
+
+func (fake *StageProductService) ListInstallationsReturns(result1 []api.InstallationsServiceOutput, result2 error) {
+	fake.ListInstallationsStub = nil
+	fake.listInstallationsReturns = struct {
+		result1 []api.InstallationsServiceOutput
+		result2 error
+	}{result1, result2}
+}
+
+func (fake *StageProductService) ListInstallationsReturnsOnCall(i int, result1 []api.InstallationsServiceOutput, result2 error) {
+	fake.ListInstallationsStub = nil
+	if fake.listInstallationsReturnsOnCall == nil {
+		fake.listInstallationsReturnsOnCall = make(map[int]struct {
+			result1 []api.InstallationsServiceOutput
+			result2 error
+		})
+	}
+	fake.listInstallationsReturnsOnCall[i] = struct {
+		result1 []api.InstallationsServiceOutput
+		result2 error
+	}{result1, result2}
+}
+
+func (fake *StageProductService) Stage(arg1 api.StageProductInput, arg2 string) error {
+	fake.stageMutex.Lock()
+	ret, specificReturn := fake.stageReturnsOnCall[len(fake.stageArgsForCall)]
+	fake.stageArgsForCall = append(fake.stageArgsForCall, struct {
+		arg1 api.StageProductInput
+		arg2 string
+	}{arg1, arg2})
+	fake.recordInvocation("Stage", []interface{}{arg1, arg2})
+	fake.stageMutex.Unlock()
+	if fake.StageStub != nil {
+		return fake.StageStub(arg1, arg2)
+	}
+	if specificReturn {
+		return ret.result1
+	}
+	return fake.stageReturns.result1
+}
+
+func (fake *StageProductService) StageCallCount() int {
+	fake.stageMutex.RLock()
+	defer fake.stageMutex.RUnlock()
+	return len(fake.stageArgsForCall)
+}
+
+func (fake *StageProductService) StageArgsForCall(i int) (api.StageProductInput, string) {
+	fake.stageMutex.RLock()
+	defer fake.stageMutex.RUnlock()
+	return fake.stageArgsForCall[i].arg1, fake.stageArgsForCall[i].arg2
+}
+
+func (fake *StageProductService) StageReturns(result1 error) {
+	fake.StageStub = nil
+	fake.stageReturns = struct {
+		result1 error
+	}{result1}
+}
+
+func (fake *StageProductService) StageReturnsOnCall(i int, result1 error) {
+	fake.StageStub = nil
+	if fake.stageReturnsOnCall == nil {
+		fake.stageReturnsOnCall = make(map[int]struct {
+			result1 error
+		})
+	}
+	fake.stageReturnsOnCall[i] = struct {
+		result1 error
+	}{result1}
+}
+
 func (fake *StageProductService) Invocations() map[string][][]interface{} {
 	fake.invocationsMutex.RLock()
 	defer fake.invocationsMutex.RUnlock()
-	fake.stageMutex.RLock()
-	defer fake.stageMutex.RUnlock()
-	fake.listDeployedProductsMutex.RLock()
-	defer fake.listDeployedProductsMutex.RUnlock()
 	fake.checkProductAvailabilityMutex.RLock()
 	defer fake.checkProductAvailabilityMutex.RUnlock()
 	fake.getDiagnosticReportMutex.RLock()
 	defer fake.getDiagnosticReportMutex.RUnlock()
+	fake.listDeployedProductsMutex.RLock()
+	defer fake.listDeployedProductsMutex.RUnlock()
+	fake.listInstallationsMutex.RLock()
+	defer fake.listInstallationsMutex.RUnlock()
+	fake.stageMutex.RLock()
+	defer fake.stageMutex.RUnlock()
 	copiedInvocations := map[string][][]interface{}{}
 	for key, value := range fake.invocations {
 		copiedInvocations[key] = value

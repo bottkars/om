@@ -32,13 +32,14 @@ type ConfigureProduct struct {
 
 //go:generate counterfeiter -o ./fakes/configure_product_service.go --fake-name ConfigureProductService . configureProductService
 type configureProductService interface {
-	ListStagedProducts() (api.StagedProductsOutput, error)
-	ListStagedProductJobs(productGUID string) (map[string]string, error)
 	GetStagedProductJobResourceConfig(productGUID, jobGUID string) (api.JobProperties, error)
-	UpdateStagedProductProperties(api.UpdateStagedProductPropertiesInput) error
-	UpdateStagedProductNetworksAndAZs(api.UpdateStagedProductNetworksAndAZsInput) error
-	UpdateStagedProductJobResourceConfig(productGUID, jobGUID string, jobProperties api.JobProperties) error
+	ListInstallations() ([]api.InstallationsServiceOutput, error)
+	ListStagedProductJobs(productGUID string) (map[string]string, error)
+	ListStagedProducts() (api.StagedProductsOutput, error)
 	UpdateStagedProductErrands(productID, errandName string, postDeployState, preDeleteState interface{}) error
+	UpdateStagedProductJobResourceConfig(productGUID, jobGUID string, jobProperties api.JobProperties) error
+	UpdateStagedProductNetworksAndAZs(api.UpdateStagedProductNetworksAndAZsInput) error
+	UpdateStagedProductProperties(api.UpdateStagedProductPropertiesInput) error
 }
 
 func NewConfigureProduct(environFunc func() []string, service configureProductService, logger logger) ConfigureProduct {
@@ -60,6 +61,11 @@ func (cp ConfigureProduct) Execute(args []string) error {
 	}
 
 	cp.logger.Printf("configuring product...")
+
+	err = checkRunningInstallation(cp.service.ListInstallations)
+	if err != nil {
+		return err
+	}
 
 	if cp.Options.ConfigFile != "" {
 		if cp.Options.ProductProperties != "" || cp.Options.NetworkProperties != "" || cp.Options.ProductResources != "" {

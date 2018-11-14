@@ -8,61 +8,39 @@ import (
 )
 
 type ConfigureDirectorService struct {
-	UpdateStagedDirectorAvailabilityZonesStub        func(api.AvailabilityZoneInput) error
-	updateStagedDirectorAvailabilityZonesMutex       sync.RWMutex
-	updateStagedDirectorAvailabilityZonesArgsForCall []struct {
-		arg1 api.AvailabilityZoneInput
+	CreateStagedVMExtensionStub        func(api.CreateVMExtension) error
+	createStagedVMExtensionMutex       sync.RWMutex
+	createStagedVMExtensionArgsForCall []struct {
+		arg1 api.CreateVMExtension
 	}
-	updateStagedDirectorAvailabilityZonesReturns struct {
+	createStagedVMExtensionReturns struct {
 		result1 error
 	}
-	updateStagedDirectorAvailabilityZonesReturnsOnCall map[int]struct {
+	createStagedVMExtensionReturnsOnCall map[int]struct {
 		result1 error
 	}
-	UpdateStagedDirectorNetworksStub        func(api.NetworkInput) error
-	updateStagedDirectorNetworksMutex       sync.RWMutex
-	updateStagedDirectorNetworksArgsForCall []struct {
-		arg1 api.NetworkInput
+	DeleteVMExtensionStub        func(name string) error
+	deleteVMExtensionMutex       sync.RWMutex
+	deleteVMExtensionArgsForCall []struct {
+		name string
 	}
-	updateStagedDirectorNetworksReturns struct {
+	deleteVMExtensionReturns struct {
 		result1 error
 	}
-	updateStagedDirectorNetworksReturnsOnCall map[int]struct {
+	deleteVMExtensionReturnsOnCall map[int]struct {
 		result1 error
 	}
-	UpdateStagedDirectorNetworkAndAZStub        func(api.NetworkAndAZConfiguration) error
-	updateStagedDirectorNetworkAndAZMutex       sync.RWMutex
-	updateStagedDirectorNetworkAndAZArgsForCall []struct {
-		arg1 api.NetworkAndAZConfiguration
+	GetStagedProductByNameStub        func(name string) (api.StagedProductsFindOutput, error)
+	getStagedProductByNameMutex       sync.RWMutex
+	getStagedProductByNameArgsForCall []struct {
+		name string
 	}
-	updateStagedDirectorNetworkAndAZReturns struct {
-		result1 error
-	}
-	updateStagedDirectorNetworkAndAZReturnsOnCall map[int]struct {
-		result1 error
-	}
-	UpdateStagedDirectorPropertiesStub        func(api.DirectorProperties) error
-	updateStagedDirectorPropertiesMutex       sync.RWMutex
-	updateStagedDirectorPropertiesArgsForCall []struct {
-		arg1 api.DirectorProperties
-	}
-	updateStagedDirectorPropertiesReturns struct {
-		result1 error
-	}
-	updateStagedDirectorPropertiesReturnsOnCall map[int]struct {
-		result1 error
-	}
-	ListStagedProductJobsStub        func(string) (map[string]string, error)
-	listStagedProductJobsMutex       sync.RWMutex
-	listStagedProductJobsArgsForCall []struct {
-		arg1 string
-	}
-	listStagedProductJobsReturns struct {
-		result1 map[string]string
+	getStagedProductByNameReturns struct {
+		result1 api.StagedProductsFindOutput
 		result2 error
 	}
-	listStagedProductJobsReturnsOnCall map[int]struct {
-		result1 map[string]string
+	getStagedProductByNameReturnsOnCall map[int]struct {
+		result1 api.StagedProductsFindOutput
 		result2 error
 	}
 	GetStagedProductJobResourceConfigStub        func(string, string) (api.JobProperties, error)
@@ -79,32 +57,6 @@ type ConfigureDirectorService struct {
 		result1 api.JobProperties
 		result2 error
 	}
-	UpdateStagedProductJobResourceConfigStub        func(string, string, api.JobProperties) error
-	updateStagedProductJobResourceConfigMutex       sync.RWMutex
-	updateStagedProductJobResourceConfigArgsForCall []struct {
-		arg1 string
-		arg2 string
-		arg3 api.JobProperties
-	}
-	updateStagedProductJobResourceConfigReturns struct {
-		result1 error
-	}
-	updateStagedProductJobResourceConfigReturnsOnCall map[int]struct {
-		result1 error
-	}
-	GetStagedProductByNameStub        func(name string) (api.StagedProductsFindOutput, error)
-	getStagedProductByNameMutex       sync.RWMutex
-	getStagedProductByNameArgsForCall []struct {
-		name string
-	}
-	getStagedProductByNameReturns struct {
-		result1 api.StagedProductsFindOutput
-		result2 error
-	}
-	getStagedProductByNameReturnsOnCall map[int]struct {
-		result1 api.StagedProductsFindOutput
-		result2 error
-	}
 	GetStagedProductManifestStub        func(guid string) (manifest string, err error)
 	getStagedProductManifestMutex       sync.RWMutex
 	getStagedProductManifestArgsForCall []struct {
@@ -118,16 +70,18 @@ type ConfigureDirectorService struct {
 		result1 string
 		result2 error
 	}
-	CreateStagedVMExtensionStub        func(api.CreateVMExtension) error
-	createStagedVMExtensionMutex       sync.RWMutex
-	createStagedVMExtensionArgsForCall []struct {
-		arg1 api.CreateVMExtension
+	ListStagedProductJobsStub        func(string) (map[string]string, error)
+	listStagedProductJobsMutex       sync.RWMutex
+	listStagedProductJobsArgsForCall []struct {
+		arg1 string
 	}
-	createStagedVMExtensionReturns struct {
-		result1 error
+	listStagedProductJobsReturns struct {
+		result1 map[string]string
+		result2 error
 	}
-	createStagedVMExtensionReturnsOnCall map[int]struct {
-		result1 error
+	listStagedProductJobsReturnsOnCall map[int]struct {
+		result1 map[string]string
+		result2 error
 	}
 	ListStagedVMExtensionsStub        func() ([]api.VMExtension, error)
 	listStagedVMExtensionsMutex       sync.RWMutex
@@ -140,260 +94,221 @@ type ConfigureDirectorService struct {
 		result1 []api.VMExtension
 		result2 error
 	}
-	DeleteVMExtensionStub        func(name string) error
-	deleteVMExtensionMutex       sync.RWMutex
-	deleteVMExtensionArgsForCall []struct {
-		name string
+	ListInstallationsStub        func() ([]api.InstallationsServiceOutput, error)
+	listInstallationsMutex       sync.RWMutex
+	listInstallationsArgsForCall []struct{}
+	listInstallationsReturns     struct {
+		result1 []api.InstallationsServiceOutput
+		result2 error
 	}
-	deleteVMExtensionReturns struct {
+	listInstallationsReturnsOnCall map[int]struct {
+		result1 []api.InstallationsServiceOutput
+		result2 error
+	}
+	UpdateStagedDirectorAvailabilityZonesStub        func(api.AvailabilityZoneInput) error
+	updateStagedDirectorAvailabilityZonesMutex       sync.RWMutex
+	updateStagedDirectorAvailabilityZonesArgsForCall []struct {
+		arg1 api.AvailabilityZoneInput
+	}
+	updateStagedDirectorAvailabilityZonesReturns struct {
 		result1 error
 	}
-	deleteVMExtensionReturnsOnCall map[int]struct {
+	updateStagedDirectorAvailabilityZonesReturnsOnCall map[int]struct {
+		result1 error
+	}
+	UpdateStagedDirectorNetworkAndAZStub        func(api.NetworkAndAZConfiguration) error
+	updateStagedDirectorNetworkAndAZMutex       sync.RWMutex
+	updateStagedDirectorNetworkAndAZArgsForCall []struct {
+		arg1 api.NetworkAndAZConfiguration
+	}
+	updateStagedDirectorNetworkAndAZReturns struct {
+		result1 error
+	}
+	updateStagedDirectorNetworkAndAZReturnsOnCall map[int]struct {
+		result1 error
+	}
+	UpdateStagedDirectorNetworksStub        func(api.NetworkInput) error
+	updateStagedDirectorNetworksMutex       sync.RWMutex
+	updateStagedDirectorNetworksArgsForCall []struct {
+		arg1 api.NetworkInput
+	}
+	updateStagedDirectorNetworksReturns struct {
+		result1 error
+	}
+	updateStagedDirectorNetworksReturnsOnCall map[int]struct {
+		result1 error
+	}
+	UpdateStagedDirectorPropertiesStub        func(api.DirectorProperties) error
+	updateStagedDirectorPropertiesMutex       sync.RWMutex
+	updateStagedDirectorPropertiesArgsForCall []struct {
+		arg1 api.DirectorProperties
+	}
+	updateStagedDirectorPropertiesReturns struct {
+		result1 error
+	}
+	updateStagedDirectorPropertiesReturnsOnCall map[int]struct {
+		result1 error
+	}
+	UpdateStagedProductJobResourceConfigStub        func(string, string, api.JobProperties) error
+	updateStagedProductJobResourceConfigMutex       sync.RWMutex
+	updateStagedProductJobResourceConfigArgsForCall []struct {
+		arg1 string
+		arg2 string
+		arg3 api.JobProperties
+	}
+	updateStagedProductJobResourceConfigReturns struct {
+		result1 error
+	}
+	updateStagedProductJobResourceConfigReturnsOnCall map[int]struct {
 		result1 error
 	}
 	invocations      map[string][][]interface{}
 	invocationsMutex sync.RWMutex
 }
 
-func (fake *ConfigureDirectorService) UpdateStagedDirectorAvailabilityZones(arg1 api.AvailabilityZoneInput) error {
-	fake.updateStagedDirectorAvailabilityZonesMutex.Lock()
-	ret, specificReturn := fake.updateStagedDirectorAvailabilityZonesReturnsOnCall[len(fake.updateStagedDirectorAvailabilityZonesArgsForCall)]
-	fake.updateStagedDirectorAvailabilityZonesArgsForCall = append(fake.updateStagedDirectorAvailabilityZonesArgsForCall, struct {
-		arg1 api.AvailabilityZoneInput
+func (fake *ConfigureDirectorService) CreateStagedVMExtension(arg1 api.CreateVMExtension) error {
+	fake.createStagedVMExtensionMutex.Lock()
+	ret, specificReturn := fake.createStagedVMExtensionReturnsOnCall[len(fake.createStagedVMExtensionArgsForCall)]
+	fake.createStagedVMExtensionArgsForCall = append(fake.createStagedVMExtensionArgsForCall, struct {
+		arg1 api.CreateVMExtension
 	}{arg1})
-	fake.recordInvocation("UpdateStagedDirectorAvailabilityZones", []interface{}{arg1})
-	fake.updateStagedDirectorAvailabilityZonesMutex.Unlock()
-	if fake.UpdateStagedDirectorAvailabilityZonesStub != nil {
-		return fake.UpdateStagedDirectorAvailabilityZonesStub(arg1)
+	fake.recordInvocation("CreateStagedVMExtension", []interface{}{arg1})
+	fake.createStagedVMExtensionMutex.Unlock()
+	if fake.CreateStagedVMExtensionStub != nil {
+		return fake.CreateStagedVMExtensionStub(arg1)
 	}
 	if specificReturn {
 		return ret.result1
 	}
-	return fake.updateStagedDirectorAvailabilityZonesReturns.result1
+	return fake.createStagedVMExtensionReturns.result1
 }
 
-func (fake *ConfigureDirectorService) UpdateStagedDirectorAvailabilityZonesCallCount() int {
-	fake.updateStagedDirectorAvailabilityZonesMutex.RLock()
-	defer fake.updateStagedDirectorAvailabilityZonesMutex.RUnlock()
-	return len(fake.updateStagedDirectorAvailabilityZonesArgsForCall)
+func (fake *ConfigureDirectorService) CreateStagedVMExtensionCallCount() int {
+	fake.createStagedVMExtensionMutex.RLock()
+	defer fake.createStagedVMExtensionMutex.RUnlock()
+	return len(fake.createStagedVMExtensionArgsForCall)
 }
 
-func (fake *ConfigureDirectorService) UpdateStagedDirectorAvailabilityZonesArgsForCall(i int) api.AvailabilityZoneInput {
-	fake.updateStagedDirectorAvailabilityZonesMutex.RLock()
-	defer fake.updateStagedDirectorAvailabilityZonesMutex.RUnlock()
-	return fake.updateStagedDirectorAvailabilityZonesArgsForCall[i].arg1
+func (fake *ConfigureDirectorService) CreateStagedVMExtensionArgsForCall(i int) api.CreateVMExtension {
+	fake.createStagedVMExtensionMutex.RLock()
+	defer fake.createStagedVMExtensionMutex.RUnlock()
+	return fake.createStagedVMExtensionArgsForCall[i].arg1
 }
 
-func (fake *ConfigureDirectorService) UpdateStagedDirectorAvailabilityZonesReturns(result1 error) {
-	fake.UpdateStagedDirectorAvailabilityZonesStub = nil
-	fake.updateStagedDirectorAvailabilityZonesReturns = struct {
+func (fake *ConfigureDirectorService) CreateStagedVMExtensionReturns(result1 error) {
+	fake.CreateStagedVMExtensionStub = nil
+	fake.createStagedVMExtensionReturns = struct {
 		result1 error
 	}{result1}
 }
 
-func (fake *ConfigureDirectorService) UpdateStagedDirectorAvailabilityZonesReturnsOnCall(i int, result1 error) {
-	fake.UpdateStagedDirectorAvailabilityZonesStub = nil
-	if fake.updateStagedDirectorAvailabilityZonesReturnsOnCall == nil {
-		fake.updateStagedDirectorAvailabilityZonesReturnsOnCall = make(map[int]struct {
+func (fake *ConfigureDirectorService) CreateStagedVMExtensionReturnsOnCall(i int, result1 error) {
+	fake.CreateStagedVMExtensionStub = nil
+	if fake.createStagedVMExtensionReturnsOnCall == nil {
+		fake.createStagedVMExtensionReturnsOnCall = make(map[int]struct {
 			result1 error
 		})
 	}
-	fake.updateStagedDirectorAvailabilityZonesReturnsOnCall[i] = struct {
+	fake.createStagedVMExtensionReturnsOnCall[i] = struct {
 		result1 error
 	}{result1}
 }
 
-func (fake *ConfigureDirectorService) UpdateStagedDirectorNetworks(arg1 api.NetworkInput) error {
-	fake.updateStagedDirectorNetworksMutex.Lock()
-	ret, specificReturn := fake.updateStagedDirectorNetworksReturnsOnCall[len(fake.updateStagedDirectorNetworksArgsForCall)]
-	fake.updateStagedDirectorNetworksArgsForCall = append(fake.updateStagedDirectorNetworksArgsForCall, struct {
-		arg1 api.NetworkInput
-	}{arg1})
-	fake.recordInvocation("UpdateStagedDirectorNetworks", []interface{}{arg1})
-	fake.updateStagedDirectorNetworksMutex.Unlock()
-	if fake.UpdateStagedDirectorNetworksStub != nil {
-		return fake.UpdateStagedDirectorNetworksStub(arg1)
+func (fake *ConfigureDirectorService) DeleteVMExtension(name string) error {
+	fake.deleteVMExtensionMutex.Lock()
+	ret, specificReturn := fake.deleteVMExtensionReturnsOnCall[len(fake.deleteVMExtensionArgsForCall)]
+	fake.deleteVMExtensionArgsForCall = append(fake.deleteVMExtensionArgsForCall, struct {
+		name string
+	}{name})
+	fake.recordInvocation("DeleteVMExtension", []interface{}{name})
+	fake.deleteVMExtensionMutex.Unlock()
+	if fake.DeleteVMExtensionStub != nil {
+		return fake.DeleteVMExtensionStub(name)
 	}
 	if specificReturn {
 		return ret.result1
 	}
-	return fake.updateStagedDirectorNetworksReturns.result1
+	return fake.deleteVMExtensionReturns.result1
 }
 
-func (fake *ConfigureDirectorService) UpdateStagedDirectorNetworksCallCount() int {
-	fake.updateStagedDirectorNetworksMutex.RLock()
-	defer fake.updateStagedDirectorNetworksMutex.RUnlock()
-	return len(fake.updateStagedDirectorNetworksArgsForCall)
+func (fake *ConfigureDirectorService) DeleteVMExtensionCallCount() int {
+	fake.deleteVMExtensionMutex.RLock()
+	defer fake.deleteVMExtensionMutex.RUnlock()
+	return len(fake.deleteVMExtensionArgsForCall)
 }
 
-func (fake *ConfigureDirectorService) UpdateStagedDirectorNetworksArgsForCall(i int) api.NetworkInput {
-	fake.updateStagedDirectorNetworksMutex.RLock()
-	defer fake.updateStagedDirectorNetworksMutex.RUnlock()
-	return fake.updateStagedDirectorNetworksArgsForCall[i].arg1
+func (fake *ConfigureDirectorService) DeleteVMExtensionArgsForCall(i int) string {
+	fake.deleteVMExtensionMutex.RLock()
+	defer fake.deleteVMExtensionMutex.RUnlock()
+	return fake.deleteVMExtensionArgsForCall[i].name
 }
 
-func (fake *ConfigureDirectorService) UpdateStagedDirectorNetworksReturns(result1 error) {
-	fake.UpdateStagedDirectorNetworksStub = nil
-	fake.updateStagedDirectorNetworksReturns = struct {
+func (fake *ConfigureDirectorService) DeleteVMExtensionReturns(result1 error) {
+	fake.DeleteVMExtensionStub = nil
+	fake.deleteVMExtensionReturns = struct {
 		result1 error
 	}{result1}
 }
 
-func (fake *ConfigureDirectorService) UpdateStagedDirectorNetworksReturnsOnCall(i int, result1 error) {
-	fake.UpdateStagedDirectorNetworksStub = nil
-	if fake.updateStagedDirectorNetworksReturnsOnCall == nil {
-		fake.updateStagedDirectorNetworksReturnsOnCall = make(map[int]struct {
+func (fake *ConfigureDirectorService) DeleteVMExtensionReturnsOnCall(i int, result1 error) {
+	fake.DeleteVMExtensionStub = nil
+	if fake.deleteVMExtensionReturnsOnCall == nil {
+		fake.deleteVMExtensionReturnsOnCall = make(map[int]struct {
 			result1 error
 		})
 	}
-	fake.updateStagedDirectorNetworksReturnsOnCall[i] = struct {
+	fake.deleteVMExtensionReturnsOnCall[i] = struct {
 		result1 error
 	}{result1}
 }
 
-func (fake *ConfigureDirectorService) UpdateStagedDirectorNetworkAndAZ(arg1 api.NetworkAndAZConfiguration) error {
-	fake.updateStagedDirectorNetworkAndAZMutex.Lock()
-	ret, specificReturn := fake.updateStagedDirectorNetworkAndAZReturnsOnCall[len(fake.updateStagedDirectorNetworkAndAZArgsForCall)]
-	fake.updateStagedDirectorNetworkAndAZArgsForCall = append(fake.updateStagedDirectorNetworkAndAZArgsForCall, struct {
-		arg1 api.NetworkAndAZConfiguration
-	}{arg1})
-	fake.recordInvocation("UpdateStagedDirectorNetworkAndAZ", []interface{}{arg1})
-	fake.updateStagedDirectorNetworkAndAZMutex.Unlock()
-	if fake.UpdateStagedDirectorNetworkAndAZStub != nil {
-		return fake.UpdateStagedDirectorNetworkAndAZStub(arg1)
-	}
-	if specificReturn {
-		return ret.result1
-	}
-	return fake.updateStagedDirectorNetworkAndAZReturns.result1
-}
-
-func (fake *ConfigureDirectorService) UpdateStagedDirectorNetworkAndAZCallCount() int {
-	fake.updateStagedDirectorNetworkAndAZMutex.RLock()
-	defer fake.updateStagedDirectorNetworkAndAZMutex.RUnlock()
-	return len(fake.updateStagedDirectorNetworkAndAZArgsForCall)
-}
-
-func (fake *ConfigureDirectorService) UpdateStagedDirectorNetworkAndAZArgsForCall(i int) api.NetworkAndAZConfiguration {
-	fake.updateStagedDirectorNetworkAndAZMutex.RLock()
-	defer fake.updateStagedDirectorNetworkAndAZMutex.RUnlock()
-	return fake.updateStagedDirectorNetworkAndAZArgsForCall[i].arg1
-}
-
-func (fake *ConfigureDirectorService) UpdateStagedDirectorNetworkAndAZReturns(result1 error) {
-	fake.UpdateStagedDirectorNetworkAndAZStub = nil
-	fake.updateStagedDirectorNetworkAndAZReturns = struct {
-		result1 error
-	}{result1}
-}
-
-func (fake *ConfigureDirectorService) UpdateStagedDirectorNetworkAndAZReturnsOnCall(i int, result1 error) {
-	fake.UpdateStagedDirectorNetworkAndAZStub = nil
-	if fake.updateStagedDirectorNetworkAndAZReturnsOnCall == nil {
-		fake.updateStagedDirectorNetworkAndAZReturnsOnCall = make(map[int]struct {
-			result1 error
-		})
-	}
-	fake.updateStagedDirectorNetworkAndAZReturnsOnCall[i] = struct {
-		result1 error
-	}{result1}
-}
-
-func (fake *ConfigureDirectorService) UpdateStagedDirectorProperties(arg1 api.DirectorProperties) error {
-	fake.updateStagedDirectorPropertiesMutex.Lock()
-	ret, specificReturn := fake.updateStagedDirectorPropertiesReturnsOnCall[len(fake.updateStagedDirectorPropertiesArgsForCall)]
-	fake.updateStagedDirectorPropertiesArgsForCall = append(fake.updateStagedDirectorPropertiesArgsForCall, struct {
-		arg1 api.DirectorProperties
-	}{arg1})
-	fake.recordInvocation("UpdateStagedDirectorProperties", []interface{}{arg1})
-	fake.updateStagedDirectorPropertiesMutex.Unlock()
-	if fake.UpdateStagedDirectorPropertiesStub != nil {
-		return fake.UpdateStagedDirectorPropertiesStub(arg1)
-	}
-	if specificReturn {
-		return ret.result1
-	}
-	return fake.updateStagedDirectorPropertiesReturns.result1
-}
-
-func (fake *ConfigureDirectorService) UpdateStagedDirectorPropertiesCallCount() int {
-	fake.updateStagedDirectorPropertiesMutex.RLock()
-	defer fake.updateStagedDirectorPropertiesMutex.RUnlock()
-	return len(fake.updateStagedDirectorPropertiesArgsForCall)
-}
-
-func (fake *ConfigureDirectorService) UpdateStagedDirectorPropertiesArgsForCall(i int) api.DirectorProperties {
-	fake.updateStagedDirectorPropertiesMutex.RLock()
-	defer fake.updateStagedDirectorPropertiesMutex.RUnlock()
-	return fake.updateStagedDirectorPropertiesArgsForCall[i].arg1
-}
-
-func (fake *ConfigureDirectorService) UpdateStagedDirectorPropertiesReturns(result1 error) {
-	fake.UpdateStagedDirectorPropertiesStub = nil
-	fake.updateStagedDirectorPropertiesReturns = struct {
-		result1 error
-	}{result1}
-}
-
-func (fake *ConfigureDirectorService) UpdateStagedDirectorPropertiesReturnsOnCall(i int, result1 error) {
-	fake.UpdateStagedDirectorPropertiesStub = nil
-	if fake.updateStagedDirectorPropertiesReturnsOnCall == nil {
-		fake.updateStagedDirectorPropertiesReturnsOnCall = make(map[int]struct {
-			result1 error
-		})
-	}
-	fake.updateStagedDirectorPropertiesReturnsOnCall[i] = struct {
-		result1 error
-	}{result1}
-}
-
-func (fake *ConfigureDirectorService) ListStagedProductJobs(arg1 string) (map[string]string, error) {
-	fake.listStagedProductJobsMutex.Lock()
-	ret, specificReturn := fake.listStagedProductJobsReturnsOnCall[len(fake.listStagedProductJobsArgsForCall)]
-	fake.listStagedProductJobsArgsForCall = append(fake.listStagedProductJobsArgsForCall, struct {
-		arg1 string
-	}{arg1})
-	fake.recordInvocation("ListStagedProductJobs", []interface{}{arg1})
-	fake.listStagedProductJobsMutex.Unlock()
-	if fake.ListStagedProductJobsStub != nil {
-		return fake.ListStagedProductJobsStub(arg1)
+func (fake *ConfigureDirectorService) GetStagedProductByName(name string) (api.StagedProductsFindOutput, error) {
+	fake.getStagedProductByNameMutex.Lock()
+	ret, specificReturn := fake.getStagedProductByNameReturnsOnCall[len(fake.getStagedProductByNameArgsForCall)]
+	fake.getStagedProductByNameArgsForCall = append(fake.getStagedProductByNameArgsForCall, struct {
+		name string
+	}{name})
+	fake.recordInvocation("GetStagedProductByName", []interface{}{name})
+	fake.getStagedProductByNameMutex.Unlock()
+	if fake.GetStagedProductByNameStub != nil {
+		return fake.GetStagedProductByNameStub(name)
 	}
 	if specificReturn {
 		return ret.result1, ret.result2
 	}
-	return fake.listStagedProductJobsReturns.result1, fake.listStagedProductJobsReturns.result2
+	return fake.getStagedProductByNameReturns.result1, fake.getStagedProductByNameReturns.result2
 }
 
-func (fake *ConfigureDirectorService) ListStagedProductJobsCallCount() int {
-	fake.listStagedProductJobsMutex.RLock()
-	defer fake.listStagedProductJobsMutex.RUnlock()
-	return len(fake.listStagedProductJobsArgsForCall)
+func (fake *ConfigureDirectorService) GetStagedProductByNameCallCount() int {
+	fake.getStagedProductByNameMutex.RLock()
+	defer fake.getStagedProductByNameMutex.RUnlock()
+	return len(fake.getStagedProductByNameArgsForCall)
 }
 
-func (fake *ConfigureDirectorService) ListStagedProductJobsArgsForCall(i int) string {
-	fake.listStagedProductJobsMutex.RLock()
-	defer fake.listStagedProductJobsMutex.RUnlock()
-	return fake.listStagedProductJobsArgsForCall[i].arg1
+func (fake *ConfigureDirectorService) GetStagedProductByNameArgsForCall(i int) string {
+	fake.getStagedProductByNameMutex.RLock()
+	defer fake.getStagedProductByNameMutex.RUnlock()
+	return fake.getStagedProductByNameArgsForCall[i].name
 }
 
-func (fake *ConfigureDirectorService) ListStagedProductJobsReturns(result1 map[string]string, result2 error) {
-	fake.ListStagedProductJobsStub = nil
-	fake.listStagedProductJobsReturns = struct {
-		result1 map[string]string
+func (fake *ConfigureDirectorService) GetStagedProductByNameReturns(result1 api.StagedProductsFindOutput, result2 error) {
+	fake.GetStagedProductByNameStub = nil
+	fake.getStagedProductByNameReturns = struct {
+		result1 api.StagedProductsFindOutput
 		result2 error
 	}{result1, result2}
 }
 
-func (fake *ConfigureDirectorService) ListStagedProductJobsReturnsOnCall(i int, result1 map[string]string, result2 error) {
-	fake.ListStagedProductJobsStub = nil
-	if fake.listStagedProductJobsReturnsOnCall == nil {
-		fake.listStagedProductJobsReturnsOnCall = make(map[int]struct {
-			result1 map[string]string
+func (fake *ConfigureDirectorService) GetStagedProductByNameReturnsOnCall(i int, result1 api.StagedProductsFindOutput, result2 error) {
+	fake.GetStagedProductByNameStub = nil
+	if fake.getStagedProductByNameReturnsOnCall == nil {
+		fake.getStagedProductByNameReturnsOnCall = make(map[int]struct {
+			result1 api.StagedProductsFindOutput
 			result2 error
 		})
 	}
-	fake.listStagedProductJobsReturnsOnCall[i] = struct {
-		result1 map[string]string
+	fake.getStagedProductByNameReturnsOnCall[i] = struct {
+		result1 api.StagedProductsFindOutput
 		result2 error
 	}{result1, result2}
 }
@@ -450,107 +365,6 @@ func (fake *ConfigureDirectorService) GetStagedProductJobResourceConfigReturnsOn
 	}{result1, result2}
 }
 
-func (fake *ConfigureDirectorService) UpdateStagedProductJobResourceConfig(arg1 string, arg2 string, arg3 api.JobProperties) error {
-	fake.updateStagedProductJobResourceConfigMutex.Lock()
-	ret, specificReturn := fake.updateStagedProductJobResourceConfigReturnsOnCall[len(fake.updateStagedProductJobResourceConfigArgsForCall)]
-	fake.updateStagedProductJobResourceConfigArgsForCall = append(fake.updateStagedProductJobResourceConfigArgsForCall, struct {
-		arg1 string
-		arg2 string
-		arg3 api.JobProperties
-	}{arg1, arg2, arg3})
-	fake.recordInvocation("UpdateStagedProductJobResourceConfig", []interface{}{arg1, arg2, arg3})
-	fake.updateStagedProductJobResourceConfigMutex.Unlock()
-	if fake.UpdateStagedProductJobResourceConfigStub != nil {
-		return fake.UpdateStagedProductJobResourceConfigStub(arg1, arg2, arg3)
-	}
-	if specificReturn {
-		return ret.result1
-	}
-	return fake.updateStagedProductJobResourceConfigReturns.result1
-}
-
-func (fake *ConfigureDirectorService) UpdateStagedProductJobResourceConfigCallCount() int {
-	fake.updateStagedProductJobResourceConfigMutex.RLock()
-	defer fake.updateStagedProductJobResourceConfigMutex.RUnlock()
-	return len(fake.updateStagedProductJobResourceConfigArgsForCall)
-}
-
-func (fake *ConfigureDirectorService) UpdateStagedProductJobResourceConfigArgsForCall(i int) (string, string, api.JobProperties) {
-	fake.updateStagedProductJobResourceConfigMutex.RLock()
-	defer fake.updateStagedProductJobResourceConfigMutex.RUnlock()
-	return fake.updateStagedProductJobResourceConfigArgsForCall[i].arg1, fake.updateStagedProductJobResourceConfigArgsForCall[i].arg2, fake.updateStagedProductJobResourceConfigArgsForCall[i].arg3
-}
-
-func (fake *ConfigureDirectorService) UpdateStagedProductJobResourceConfigReturns(result1 error) {
-	fake.UpdateStagedProductJobResourceConfigStub = nil
-	fake.updateStagedProductJobResourceConfigReturns = struct {
-		result1 error
-	}{result1}
-}
-
-func (fake *ConfigureDirectorService) UpdateStagedProductJobResourceConfigReturnsOnCall(i int, result1 error) {
-	fake.UpdateStagedProductJobResourceConfigStub = nil
-	if fake.updateStagedProductJobResourceConfigReturnsOnCall == nil {
-		fake.updateStagedProductJobResourceConfigReturnsOnCall = make(map[int]struct {
-			result1 error
-		})
-	}
-	fake.updateStagedProductJobResourceConfigReturnsOnCall[i] = struct {
-		result1 error
-	}{result1}
-}
-
-func (fake *ConfigureDirectorService) GetStagedProductByName(name string) (api.StagedProductsFindOutput, error) {
-	fake.getStagedProductByNameMutex.Lock()
-	ret, specificReturn := fake.getStagedProductByNameReturnsOnCall[len(fake.getStagedProductByNameArgsForCall)]
-	fake.getStagedProductByNameArgsForCall = append(fake.getStagedProductByNameArgsForCall, struct {
-		name string
-	}{name})
-	fake.recordInvocation("GetStagedProductByName", []interface{}{name})
-	fake.getStagedProductByNameMutex.Unlock()
-	if fake.GetStagedProductByNameStub != nil {
-		return fake.GetStagedProductByNameStub(name)
-	}
-	if specificReturn {
-		return ret.result1, ret.result2
-	}
-	return fake.getStagedProductByNameReturns.result1, fake.getStagedProductByNameReturns.result2
-}
-
-func (fake *ConfigureDirectorService) GetStagedProductByNameCallCount() int {
-	fake.getStagedProductByNameMutex.RLock()
-	defer fake.getStagedProductByNameMutex.RUnlock()
-	return len(fake.getStagedProductByNameArgsForCall)
-}
-
-func (fake *ConfigureDirectorService) GetStagedProductByNameArgsForCall(i int) string {
-	fake.getStagedProductByNameMutex.RLock()
-	defer fake.getStagedProductByNameMutex.RUnlock()
-	return fake.getStagedProductByNameArgsForCall[i].name
-}
-
-func (fake *ConfigureDirectorService) GetStagedProductByNameReturns(result1 api.StagedProductsFindOutput, result2 error) {
-	fake.GetStagedProductByNameStub = nil
-	fake.getStagedProductByNameReturns = struct {
-		result1 api.StagedProductsFindOutput
-		result2 error
-	}{result1, result2}
-}
-
-func (fake *ConfigureDirectorService) GetStagedProductByNameReturnsOnCall(i int, result1 api.StagedProductsFindOutput, result2 error) {
-	fake.GetStagedProductByNameStub = nil
-	if fake.getStagedProductByNameReturnsOnCall == nil {
-		fake.getStagedProductByNameReturnsOnCall = make(map[int]struct {
-			result1 api.StagedProductsFindOutput
-			result2 error
-		})
-	}
-	fake.getStagedProductByNameReturnsOnCall[i] = struct {
-		result1 api.StagedProductsFindOutput
-		result2 error
-	}{result1, result2}
-}
-
 func (fake *ConfigureDirectorService) GetStagedProductManifest(guid string) (manifest string, err error) {
 	fake.getStagedProductManifestMutex.Lock()
 	ret, specificReturn := fake.getStagedProductManifestReturnsOnCall[len(fake.getStagedProductManifestArgsForCall)]
@@ -602,52 +416,55 @@ func (fake *ConfigureDirectorService) GetStagedProductManifestReturnsOnCall(i in
 	}{result1, result2}
 }
 
-func (fake *ConfigureDirectorService) CreateStagedVMExtension(arg1 api.CreateVMExtension) error {
-	fake.createStagedVMExtensionMutex.Lock()
-	ret, specificReturn := fake.createStagedVMExtensionReturnsOnCall[len(fake.createStagedVMExtensionArgsForCall)]
-	fake.createStagedVMExtensionArgsForCall = append(fake.createStagedVMExtensionArgsForCall, struct {
-		arg1 api.CreateVMExtension
+func (fake *ConfigureDirectorService) ListStagedProductJobs(arg1 string) (map[string]string, error) {
+	fake.listStagedProductJobsMutex.Lock()
+	ret, specificReturn := fake.listStagedProductJobsReturnsOnCall[len(fake.listStagedProductJobsArgsForCall)]
+	fake.listStagedProductJobsArgsForCall = append(fake.listStagedProductJobsArgsForCall, struct {
+		arg1 string
 	}{arg1})
-	fake.recordInvocation("CreateStagedVMExtension", []interface{}{arg1})
-	fake.createStagedVMExtensionMutex.Unlock()
-	if fake.CreateStagedVMExtensionStub != nil {
-		return fake.CreateStagedVMExtensionStub(arg1)
+	fake.recordInvocation("ListStagedProductJobs", []interface{}{arg1})
+	fake.listStagedProductJobsMutex.Unlock()
+	if fake.ListStagedProductJobsStub != nil {
+		return fake.ListStagedProductJobsStub(arg1)
 	}
 	if specificReturn {
-		return ret.result1
+		return ret.result1, ret.result2
 	}
-	return fake.createStagedVMExtensionReturns.result1
+	return fake.listStagedProductJobsReturns.result1, fake.listStagedProductJobsReturns.result2
 }
 
-func (fake *ConfigureDirectorService) CreateStagedVMExtensionCallCount() int {
-	fake.createStagedVMExtensionMutex.RLock()
-	defer fake.createStagedVMExtensionMutex.RUnlock()
-	return len(fake.createStagedVMExtensionArgsForCall)
+func (fake *ConfigureDirectorService) ListStagedProductJobsCallCount() int {
+	fake.listStagedProductJobsMutex.RLock()
+	defer fake.listStagedProductJobsMutex.RUnlock()
+	return len(fake.listStagedProductJobsArgsForCall)
 }
 
-func (fake *ConfigureDirectorService) CreateStagedVMExtensionArgsForCall(i int) api.CreateVMExtension {
-	fake.createStagedVMExtensionMutex.RLock()
-	defer fake.createStagedVMExtensionMutex.RUnlock()
-	return fake.createStagedVMExtensionArgsForCall[i].arg1
+func (fake *ConfigureDirectorService) ListStagedProductJobsArgsForCall(i int) string {
+	fake.listStagedProductJobsMutex.RLock()
+	defer fake.listStagedProductJobsMutex.RUnlock()
+	return fake.listStagedProductJobsArgsForCall[i].arg1
 }
 
-func (fake *ConfigureDirectorService) CreateStagedVMExtensionReturns(result1 error) {
-	fake.CreateStagedVMExtensionStub = nil
-	fake.createStagedVMExtensionReturns = struct {
-		result1 error
-	}{result1}
+func (fake *ConfigureDirectorService) ListStagedProductJobsReturns(result1 map[string]string, result2 error) {
+	fake.ListStagedProductJobsStub = nil
+	fake.listStagedProductJobsReturns = struct {
+		result1 map[string]string
+		result2 error
+	}{result1, result2}
 }
 
-func (fake *ConfigureDirectorService) CreateStagedVMExtensionReturnsOnCall(i int, result1 error) {
-	fake.CreateStagedVMExtensionStub = nil
-	if fake.createStagedVMExtensionReturnsOnCall == nil {
-		fake.createStagedVMExtensionReturnsOnCall = make(map[int]struct {
-			result1 error
+func (fake *ConfigureDirectorService) ListStagedProductJobsReturnsOnCall(i int, result1 map[string]string, result2 error) {
+	fake.ListStagedProductJobsStub = nil
+	if fake.listStagedProductJobsReturnsOnCall == nil {
+		fake.listStagedProductJobsReturnsOnCall = make(map[int]struct {
+			result1 map[string]string
+			result2 error
 		})
 	}
-	fake.createStagedVMExtensionReturnsOnCall[i] = struct {
-		result1 error
-	}{result1}
+	fake.listStagedProductJobsReturnsOnCall[i] = struct {
+		result1 map[string]string
+		result2 error
+	}{result1, result2}
 }
 
 func (fake *ConfigureDirectorService) ListStagedVMExtensions() ([]api.VMExtension, error) {
@@ -693,50 +510,287 @@ func (fake *ConfigureDirectorService) ListStagedVMExtensionsReturnsOnCall(i int,
 	}{result1, result2}
 }
 
-func (fake *ConfigureDirectorService) DeleteVMExtension(name string) error {
-	fake.deleteVMExtensionMutex.Lock()
-	ret, specificReturn := fake.deleteVMExtensionReturnsOnCall[len(fake.deleteVMExtensionArgsForCall)]
-	fake.deleteVMExtensionArgsForCall = append(fake.deleteVMExtensionArgsForCall, struct {
-		name string
-	}{name})
-	fake.recordInvocation("DeleteVMExtension", []interface{}{name})
-	fake.deleteVMExtensionMutex.Unlock()
-	if fake.DeleteVMExtensionStub != nil {
-		return fake.DeleteVMExtensionStub(name)
+func (fake *ConfigureDirectorService) ListInstallations() ([]api.InstallationsServiceOutput, error) {
+	fake.listInstallationsMutex.Lock()
+	ret, specificReturn := fake.listInstallationsReturnsOnCall[len(fake.listInstallationsArgsForCall)]
+	fake.listInstallationsArgsForCall = append(fake.listInstallationsArgsForCall, struct{}{})
+	fake.recordInvocation("ListInstallations", []interface{}{})
+	fake.listInstallationsMutex.Unlock()
+	if fake.ListInstallationsStub != nil {
+		return fake.ListInstallationsStub()
+	}
+	if specificReturn {
+		return ret.result1, ret.result2
+	}
+	return fake.listInstallationsReturns.result1, fake.listInstallationsReturns.result2
+}
+
+func (fake *ConfigureDirectorService) ListInstallationsCallCount() int {
+	fake.listInstallationsMutex.RLock()
+	defer fake.listInstallationsMutex.RUnlock()
+	return len(fake.listInstallationsArgsForCall)
+}
+
+func (fake *ConfigureDirectorService) ListInstallationsReturns(result1 []api.InstallationsServiceOutput, result2 error) {
+	fake.ListInstallationsStub = nil
+	fake.listInstallationsReturns = struct {
+		result1 []api.InstallationsServiceOutput
+		result2 error
+	}{result1, result2}
+}
+
+func (fake *ConfigureDirectorService) ListInstallationsReturnsOnCall(i int, result1 []api.InstallationsServiceOutput, result2 error) {
+	fake.ListInstallationsStub = nil
+	if fake.listInstallationsReturnsOnCall == nil {
+		fake.listInstallationsReturnsOnCall = make(map[int]struct {
+			result1 []api.InstallationsServiceOutput
+			result2 error
+		})
+	}
+	fake.listInstallationsReturnsOnCall[i] = struct {
+		result1 []api.InstallationsServiceOutput
+		result2 error
+	}{result1, result2}
+}
+
+func (fake *ConfigureDirectorService) UpdateStagedDirectorAvailabilityZones(arg1 api.AvailabilityZoneInput) error {
+	fake.updateStagedDirectorAvailabilityZonesMutex.Lock()
+	ret, specificReturn := fake.updateStagedDirectorAvailabilityZonesReturnsOnCall[len(fake.updateStagedDirectorAvailabilityZonesArgsForCall)]
+	fake.updateStagedDirectorAvailabilityZonesArgsForCall = append(fake.updateStagedDirectorAvailabilityZonesArgsForCall, struct {
+		arg1 api.AvailabilityZoneInput
+	}{arg1})
+	fake.recordInvocation("UpdateStagedDirectorAvailabilityZones", []interface{}{arg1})
+	fake.updateStagedDirectorAvailabilityZonesMutex.Unlock()
+	if fake.UpdateStagedDirectorAvailabilityZonesStub != nil {
+		return fake.UpdateStagedDirectorAvailabilityZonesStub(arg1)
 	}
 	if specificReturn {
 		return ret.result1
 	}
-	return fake.deleteVMExtensionReturns.result1
+	return fake.updateStagedDirectorAvailabilityZonesReturns.result1
 }
 
-func (fake *ConfigureDirectorService) DeleteVMExtensionCallCount() int {
-	fake.deleteVMExtensionMutex.RLock()
-	defer fake.deleteVMExtensionMutex.RUnlock()
-	return len(fake.deleteVMExtensionArgsForCall)
+func (fake *ConfigureDirectorService) UpdateStagedDirectorAvailabilityZonesCallCount() int {
+	fake.updateStagedDirectorAvailabilityZonesMutex.RLock()
+	defer fake.updateStagedDirectorAvailabilityZonesMutex.RUnlock()
+	return len(fake.updateStagedDirectorAvailabilityZonesArgsForCall)
 }
 
-func (fake *ConfigureDirectorService) DeleteVMExtensionArgsForCall(i int) string {
-	fake.deleteVMExtensionMutex.RLock()
-	defer fake.deleteVMExtensionMutex.RUnlock()
-	return fake.deleteVMExtensionArgsForCall[i].name
+func (fake *ConfigureDirectorService) UpdateStagedDirectorAvailabilityZonesArgsForCall(i int) api.AvailabilityZoneInput {
+	fake.updateStagedDirectorAvailabilityZonesMutex.RLock()
+	defer fake.updateStagedDirectorAvailabilityZonesMutex.RUnlock()
+	return fake.updateStagedDirectorAvailabilityZonesArgsForCall[i].arg1
 }
 
-func (fake *ConfigureDirectorService) DeleteVMExtensionReturns(result1 error) {
-	fake.DeleteVMExtensionStub = nil
-	fake.deleteVMExtensionReturns = struct {
+func (fake *ConfigureDirectorService) UpdateStagedDirectorAvailabilityZonesReturns(result1 error) {
+	fake.UpdateStagedDirectorAvailabilityZonesStub = nil
+	fake.updateStagedDirectorAvailabilityZonesReturns = struct {
 		result1 error
 	}{result1}
 }
 
-func (fake *ConfigureDirectorService) DeleteVMExtensionReturnsOnCall(i int, result1 error) {
-	fake.DeleteVMExtensionStub = nil
-	if fake.deleteVMExtensionReturnsOnCall == nil {
-		fake.deleteVMExtensionReturnsOnCall = make(map[int]struct {
+func (fake *ConfigureDirectorService) UpdateStagedDirectorAvailabilityZonesReturnsOnCall(i int, result1 error) {
+	fake.UpdateStagedDirectorAvailabilityZonesStub = nil
+	if fake.updateStagedDirectorAvailabilityZonesReturnsOnCall == nil {
+		fake.updateStagedDirectorAvailabilityZonesReturnsOnCall = make(map[int]struct {
 			result1 error
 		})
 	}
-	fake.deleteVMExtensionReturnsOnCall[i] = struct {
+	fake.updateStagedDirectorAvailabilityZonesReturnsOnCall[i] = struct {
+		result1 error
+	}{result1}
+}
+
+func (fake *ConfigureDirectorService) UpdateStagedDirectorNetworkAndAZ(arg1 api.NetworkAndAZConfiguration) error {
+	fake.updateStagedDirectorNetworkAndAZMutex.Lock()
+	ret, specificReturn := fake.updateStagedDirectorNetworkAndAZReturnsOnCall[len(fake.updateStagedDirectorNetworkAndAZArgsForCall)]
+	fake.updateStagedDirectorNetworkAndAZArgsForCall = append(fake.updateStagedDirectorNetworkAndAZArgsForCall, struct {
+		arg1 api.NetworkAndAZConfiguration
+	}{arg1})
+	fake.recordInvocation("UpdateStagedDirectorNetworkAndAZ", []interface{}{arg1})
+	fake.updateStagedDirectorNetworkAndAZMutex.Unlock()
+	if fake.UpdateStagedDirectorNetworkAndAZStub != nil {
+		return fake.UpdateStagedDirectorNetworkAndAZStub(arg1)
+	}
+	if specificReturn {
+		return ret.result1
+	}
+	return fake.updateStagedDirectorNetworkAndAZReturns.result1
+}
+
+func (fake *ConfigureDirectorService) UpdateStagedDirectorNetworkAndAZCallCount() int {
+	fake.updateStagedDirectorNetworkAndAZMutex.RLock()
+	defer fake.updateStagedDirectorNetworkAndAZMutex.RUnlock()
+	return len(fake.updateStagedDirectorNetworkAndAZArgsForCall)
+}
+
+func (fake *ConfigureDirectorService) UpdateStagedDirectorNetworkAndAZArgsForCall(i int) api.NetworkAndAZConfiguration {
+	fake.updateStagedDirectorNetworkAndAZMutex.RLock()
+	defer fake.updateStagedDirectorNetworkAndAZMutex.RUnlock()
+	return fake.updateStagedDirectorNetworkAndAZArgsForCall[i].arg1
+}
+
+func (fake *ConfigureDirectorService) UpdateStagedDirectorNetworkAndAZReturns(result1 error) {
+	fake.UpdateStagedDirectorNetworkAndAZStub = nil
+	fake.updateStagedDirectorNetworkAndAZReturns = struct {
+		result1 error
+	}{result1}
+}
+
+func (fake *ConfigureDirectorService) UpdateStagedDirectorNetworkAndAZReturnsOnCall(i int, result1 error) {
+	fake.UpdateStagedDirectorNetworkAndAZStub = nil
+	if fake.updateStagedDirectorNetworkAndAZReturnsOnCall == nil {
+		fake.updateStagedDirectorNetworkAndAZReturnsOnCall = make(map[int]struct {
+			result1 error
+		})
+	}
+	fake.updateStagedDirectorNetworkAndAZReturnsOnCall[i] = struct {
+		result1 error
+	}{result1}
+}
+
+func (fake *ConfigureDirectorService) UpdateStagedDirectorNetworks(arg1 api.NetworkInput) error {
+	fake.updateStagedDirectorNetworksMutex.Lock()
+	ret, specificReturn := fake.updateStagedDirectorNetworksReturnsOnCall[len(fake.updateStagedDirectorNetworksArgsForCall)]
+	fake.updateStagedDirectorNetworksArgsForCall = append(fake.updateStagedDirectorNetworksArgsForCall, struct {
+		arg1 api.NetworkInput
+	}{arg1})
+	fake.recordInvocation("UpdateStagedDirectorNetworks", []interface{}{arg1})
+	fake.updateStagedDirectorNetworksMutex.Unlock()
+	if fake.UpdateStagedDirectorNetworksStub != nil {
+		return fake.UpdateStagedDirectorNetworksStub(arg1)
+	}
+	if specificReturn {
+		return ret.result1
+	}
+	return fake.updateStagedDirectorNetworksReturns.result1
+}
+
+func (fake *ConfigureDirectorService) UpdateStagedDirectorNetworksCallCount() int {
+	fake.updateStagedDirectorNetworksMutex.RLock()
+	defer fake.updateStagedDirectorNetworksMutex.RUnlock()
+	return len(fake.updateStagedDirectorNetworksArgsForCall)
+}
+
+func (fake *ConfigureDirectorService) UpdateStagedDirectorNetworksArgsForCall(i int) api.NetworkInput {
+	fake.updateStagedDirectorNetworksMutex.RLock()
+	defer fake.updateStagedDirectorNetworksMutex.RUnlock()
+	return fake.updateStagedDirectorNetworksArgsForCall[i].arg1
+}
+
+func (fake *ConfigureDirectorService) UpdateStagedDirectorNetworksReturns(result1 error) {
+	fake.UpdateStagedDirectorNetworksStub = nil
+	fake.updateStagedDirectorNetworksReturns = struct {
+		result1 error
+	}{result1}
+}
+
+func (fake *ConfigureDirectorService) UpdateStagedDirectorNetworksReturnsOnCall(i int, result1 error) {
+	fake.UpdateStagedDirectorNetworksStub = nil
+	if fake.updateStagedDirectorNetworksReturnsOnCall == nil {
+		fake.updateStagedDirectorNetworksReturnsOnCall = make(map[int]struct {
+			result1 error
+		})
+	}
+	fake.updateStagedDirectorNetworksReturnsOnCall[i] = struct {
+		result1 error
+	}{result1}
+}
+
+func (fake *ConfigureDirectorService) UpdateStagedDirectorProperties(arg1 api.DirectorProperties) error {
+	fake.updateStagedDirectorPropertiesMutex.Lock()
+	ret, specificReturn := fake.updateStagedDirectorPropertiesReturnsOnCall[len(fake.updateStagedDirectorPropertiesArgsForCall)]
+	fake.updateStagedDirectorPropertiesArgsForCall = append(fake.updateStagedDirectorPropertiesArgsForCall, struct {
+		arg1 api.DirectorProperties
+	}{arg1})
+	fake.recordInvocation("UpdateStagedDirectorProperties", []interface{}{arg1})
+	fake.updateStagedDirectorPropertiesMutex.Unlock()
+	if fake.UpdateStagedDirectorPropertiesStub != nil {
+		return fake.UpdateStagedDirectorPropertiesStub(arg1)
+	}
+	if specificReturn {
+		return ret.result1
+	}
+	return fake.updateStagedDirectorPropertiesReturns.result1
+}
+
+func (fake *ConfigureDirectorService) UpdateStagedDirectorPropertiesCallCount() int {
+	fake.updateStagedDirectorPropertiesMutex.RLock()
+	defer fake.updateStagedDirectorPropertiesMutex.RUnlock()
+	return len(fake.updateStagedDirectorPropertiesArgsForCall)
+}
+
+func (fake *ConfigureDirectorService) UpdateStagedDirectorPropertiesArgsForCall(i int) api.DirectorProperties {
+	fake.updateStagedDirectorPropertiesMutex.RLock()
+	defer fake.updateStagedDirectorPropertiesMutex.RUnlock()
+	return fake.updateStagedDirectorPropertiesArgsForCall[i].arg1
+}
+
+func (fake *ConfigureDirectorService) UpdateStagedDirectorPropertiesReturns(result1 error) {
+	fake.UpdateStagedDirectorPropertiesStub = nil
+	fake.updateStagedDirectorPropertiesReturns = struct {
+		result1 error
+	}{result1}
+}
+
+func (fake *ConfigureDirectorService) UpdateStagedDirectorPropertiesReturnsOnCall(i int, result1 error) {
+	fake.UpdateStagedDirectorPropertiesStub = nil
+	if fake.updateStagedDirectorPropertiesReturnsOnCall == nil {
+		fake.updateStagedDirectorPropertiesReturnsOnCall = make(map[int]struct {
+			result1 error
+		})
+	}
+	fake.updateStagedDirectorPropertiesReturnsOnCall[i] = struct {
+		result1 error
+	}{result1}
+}
+
+func (fake *ConfigureDirectorService) UpdateStagedProductJobResourceConfig(arg1 string, arg2 string, arg3 api.JobProperties) error {
+	fake.updateStagedProductJobResourceConfigMutex.Lock()
+	ret, specificReturn := fake.updateStagedProductJobResourceConfigReturnsOnCall[len(fake.updateStagedProductJobResourceConfigArgsForCall)]
+	fake.updateStagedProductJobResourceConfigArgsForCall = append(fake.updateStagedProductJobResourceConfigArgsForCall, struct {
+		arg1 string
+		arg2 string
+		arg3 api.JobProperties
+	}{arg1, arg2, arg3})
+	fake.recordInvocation("UpdateStagedProductJobResourceConfig", []interface{}{arg1, arg2, arg3})
+	fake.updateStagedProductJobResourceConfigMutex.Unlock()
+	if fake.UpdateStagedProductJobResourceConfigStub != nil {
+		return fake.UpdateStagedProductJobResourceConfigStub(arg1, arg2, arg3)
+	}
+	if specificReturn {
+		return ret.result1
+	}
+	return fake.updateStagedProductJobResourceConfigReturns.result1
+}
+
+func (fake *ConfigureDirectorService) UpdateStagedProductJobResourceConfigCallCount() int {
+	fake.updateStagedProductJobResourceConfigMutex.RLock()
+	defer fake.updateStagedProductJobResourceConfigMutex.RUnlock()
+	return len(fake.updateStagedProductJobResourceConfigArgsForCall)
+}
+
+func (fake *ConfigureDirectorService) UpdateStagedProductJobResourceConfigArgsForCall(i int) (string, string, api.JobProperties) {
+	fake.updateStagedProductJobResourceConfigMutex.RLock()
+	defer fake.updateStagedProductJobResourceConfigMutex.RUnlock()
+	return fake.updateStagedProductJobResourceConfigArgsForCall[i].arg1, fake.updateStagedProductJobResourceConfigArgsForCall[i].arg2, fake.updateStagedProductJobResourceConfigArgsForCall[i].arg3
+}
+
+func (fake *ConfigureDirectorService) UpdateStagedProductJobResourceConfigReturns(result1 error) {
+	fake.UpdateStagedProductJobResourceConfigStub = nil
+	fake.updateStagedProductJobResourceConfigReturns = struct {
+		result1 error
+	}{result1}
+}
+
+func (fake *ConfigureDirectorService) UpdateStagedProductJobResourceConfigReturnsOnCall(i int, result1 error) {
+	fake.UpdateStagedProductJobResourceConfigStub = nil
+	if fake.updateStagedProductJobResourceConfigReturnsOnCall == nil {
+		fake.updateStagedProductJobResourceConfigReturnsOnCall = make(map[int]struct {
+			result1 error
+		})
+	}
+	fake.updateStagedProductJobResourceConfigReturnsOnCall[i] = struct {
 		result1 error
 	}{result1}
 }
@@ -744,30 +798,32 @@ func (fake *ConfigureDirectorService) DeleteVMExtensionReturnsOnCall(i int, resu
 func (fake *ConfigureDirectorService) Invocations() map[string][][]interface{} {
 	fake.invocationsMutex.RLock()
 	defer fake.invocationsMutex.RUnlock()
-	fake.updateStagedDirectorAvailabilityZonesMutex.RLock()
-	defer fake.updateStagedDirectorAvailabilityZonesMutex.RUnlock()
-	fake.updateStagedDirectorNetworksMutex.RLock()
-	defer fake.updateStagedDirectorNetworksMutex.RUnlock()
-	fake.updateStagedDirectorNetworkAndAZMutex.RLock()
-	defer fake.updateStagedDirectorNetworkAndAZMutex.RUnlock()
-	fake.updateStagedDirectorPropertiesMutex.RLock()
-	defer fake.updateStagedDirectorPropertiesMutex.RUnlock()
-	fake.listStagedProductJobsMutex.RLock()
-	defer fake.listStagedProductJobsMutex.RUnlock()
-	fake.getStagedProductJobResourceConfigMutex.RLock()
-	defer fake.getStagedProductJobResourceConfigMutex.RUnlock()
-	fake.updateStagedProductJobResourceConfigMutex.RLock()
-	defer fake.updateStagedProductJobResourceConfigMutex.RUnlock()
-	fake.getStagedProductByNameMutex.RLock()
-	defer fake.getStagedProductByNameMutex.RUnlock()
-	fake.getStagedProductManifestMutex.RLock()
-	defer fake.getStagedProductManifestMutex.RUnlock()
 	fake.createStagedVMExtensionMutex.RLock()
 	defer fake.createStagedVMExtensionMutex.RUnlock()
-	fake.listStagedVMExtensionsMutex.RLock()
-	defer fake.listStagedVMExtensionsMutex.RUnlock()
 	fake.deleteVMExtensionMutex.RLock()
 	defer fake.deleteVMExtensionMutex.RUnlock()
+	fake.getStagedProductByNameMutex.RLock()
+	defer fake.getStagedProductByNameMutex.RUnlock()
+	fake.getStagedProductJobResourceConfigMutex.RLock()
+	defer fake.getStagedProductJobResourceConfigMutex.RUnlock()
+	fake.getStagedProductManifestMutex.RLock()
+	defer fake.getStagedProductManifestMutex.RUnlock()
+	fake.listStagedProductJobsMutex.RLock()
+	defer fake.listStagedProductJobsMutex.RUnlock()
+	fake.listStagedVMExtensionsMutex.RLock()
+	defer fake.listStagedVMExtensionsMutex.RUnlock()
+	fake.listInstallationsMutex.RLock()
+	defer fake.listInstallationsMutex.RUnlock()
+	fake.updateStagedDirectorAvailabilityZonesMutex.RLock()
+	defer fake.updateStagedDirectorAvailabilityZonesMutex.RUnlock()
+	fake.updateStagedDirectorNetworkAndAZMutex.RLock()
+	defer fake.updateStagedDirectorNetworkAndAZMutex.RUnlock()
+	fake.updateStagedDirectorNetworksMutex.RLock()
+	defer fake.updateStagedDirectorNetworksMutex.RUnlock()
+	fake.updateStagedDirectorPropertiesMutex.RLock()
+	defer fake.updateStagedDirectorPropertiesMutex.RUnlock()
+	fake.updateStagedProductJobResourceConfigMutex.RLock()
+	defer fake.updateStagedProductJobResourceConfigMutex.RUnlock()
 	copiedInvocations := map[string][][]interface{}{}
 	for key, value := range fake.invocations {
 		copiedInvocations[key] = value

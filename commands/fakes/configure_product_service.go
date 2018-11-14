@@ -8,15 +8,29 @@ import (
 )
 
 type ConfigureProductService struct {
-	ListStagedProductsStub        func() (api.StagedProductsOutput, error)
-	listStagedProductsMutex       sync.RWMutex
-	listStagedProductsArgsForCall []struct{}
-	listStagedProductsReturns     struct {
-		result1 api.StagedProductsOutput
+	GetStagedProductJobResourceConfigStub        func(productGUID, jobGUID string) (api.JobProperties, error)
+	getStagedProductJobResourceConfigMutex       sync.RWMutex
+	getStagedProductJobResourceConfigArgsForCall []struct {
+		productGUID string
+		jobGUID     string
+	}
+	getStagedProductJobResourceConfigReturns struct {
+		result1 api.JobProperties
 		result2 error
 	}
-	listStagedProductsReturnsOnCall map[int]struct {
-		result1 api.StagedProductsOutput
+	getStagedProductJobResourceConfigReturnsOnCall map[int]struct {
+		result1 api.JobProperties
+		result2 error
+	}
+	ListInstallationsStub        func() ([]api.InstallationsServiceOutput, error)
+	listInstallationsMutex       sync.RWMutex
+	listInstallationsArgsForCall []struct{}
+	listInstallationsReturns     struct {
+		result1 []api.InstallationsServiceOutput
+		result2 error
+	}
+	listInstallationsReturnsOnCall map[int]struct {
+		result1 []api.InstallationsServiceOutput
 		result2 error
 	}
 	ListStagedProductJobsStub        func(productGUID string) (map[string]string, error)
@@ -32,54 +46,16 @@ type ConfigureProductService struct {
 		result1 map[string]string
 		result2 error
 	}
-	GetStagedProductJobResourceConfigStub        func(productGUID, jobGUID string) (api.JobProperties, error)
-	getStagedProductJobResourceConfigMutex       sync.RWMutex
-	getStagedProductJobResourceConfigArgsForCall []struct {
-		productGUID string
-		jobGUID     string
-	}
-	getStagedProductJobResourceConfigReturns struct {
-		result1 api.JobProperties
+	ListStagedProductsStub        func() (api.StagedProductsOutput, error)
+	listStagedProductsMutex       sync.RWMutex
+	listStagedProductsArgsForCall []struct{}
+	listStagedProductsReturns     struct {
+		result1 api.StagedProductsOutput
 		result2 error
 	}
-	getStagedProductJobResourceConfigReturnsOnCall map[int]struct {
-		result1 api.JobProperties
+	listStagedProductsReturnsOnCall map[int]struct {
+		result1 api.StagedProductsOutput
 		result2 error
-	}
-	UpdateStagedProductPropertiesStub        func(api.UpdateStagedProductPropertiesInput) error
-	updateStagedProductPropertiesMutex       sync.RWMutex
-	updateStagedProductPropertiesArgsForCall []struct {
-		arg1 api.UpdateStagedProductPropertiesInput
-	}
-	updateStagedProductPropertiesReturns struct {
-		result1 error
-	}
-	updateStagedProductPropertiesReturnsOnCall map[int]struct {
-		result1 error
-	}
-	UpdateStagedProductNetworksAndAZsStub        func(api.UpdateStagedProductNetworksAndAZsInput) error
-	updateStagedProductNetworksAndAZsMutex       sync.RWMutex
-	updateStagedProductNetworksAndAZsArgsForCall []struct {
-		arg1 api.UpdateStagedProductNetworksAndAZsInput
-	}
-	updateStagedProductNetworksAndAZsReturns struct {
-		result1 error
-	}
-	updateStagedProductNetworksAndAZsReturnsOnCall map[int]struct {
-		result1 error
-	}
-	UpdateStagedProductJobResourceConfigStub        func(productGUID, jobGUID string, jobProperties api.JobProperties) error
-	updateStagedProductJobResourceConfigMutex       sync.RWMutex
-	updateStagedProductJobResourceConfigArgsForCall []struct {
-		productGUID   string
-		jobGUID       string
-		jobProperties api.JobProperties
-	}
-	updateStagedProductJobResourceConfigReturns struct {
-		result1 error
-	}
-	updateStagedProductJobResourceConfigReturnsOnCall map[int]struct {
-		result1 error
 	}
 	UpdateStagedProductErrandsStub        func(productID, errandName string, postDeployState, preDeleteState interface{}) error
 	updateStagedProductErrandsMutex       sync.RWMutex
@@ -95,49 +71,136 @@ type ConfigureProductService struct {
 	updateStagedProductErrandsReturnsOnCall map[int]struct {
 		result1 error
 	}
+	UpdateStagedProductJobResourceConfigStub        func(productGUID, jobGUID string, jobProperties api.JobProperties) error
+	updateStagedProductJobResourceConfigMutex       sync.RWMutex
+	updateStagedProductJobResourceConfigArgsForCall []struct {
+		productGUID   string
+		jobGUID       string
+		jobProperties api.JobProperties
+	}
+	updateStagedProductJobResourceConfigReturns struct {
+		result1 error
+	}
+	updateStagedProductJobResourceConfigReturnsOnCall map[int]struct {
+		result1 error
+	}
+	UpdateStagedProductNetworksAndAZsStub        func(api.UpdateStagedProductNetworksAndAZsInput) error
+	updateStagedProductNetworksAndAZsMutex       sync.RWMutex
+	updateStagedProductNetworksAndAZsArgsForCall []struct {
+		arg1 api.UpdateStagedProductNetworksAndAZsInput
+	}
+	updateStagedProductNetworksAndAZsReturns struct {
+		result1 error
+	}
+	updateStagedProductNetworksAndAZsReturnsOnCall map[int]struct {
+		result1 error
+	}
+	UpdateStagedProductPropertiesStub        func(api.UpdateStagedProductPropertiesInput) error
+	updateStagedProductPropertiesMutex       sync.RWMutex
+	updateStagedProductPropertiesArgsForCall []struct {
+		arg1 api.UpdateStagedProductPropertiesInput
+	}
+	updateStagedProductPropertiesReturns struct {
+		result1 error
+	}
+	updateStagedProductPropertiesReturnsOnCall map[int]struct {
+		result1 error
+	}
 	invocations      map[string][][]interface{}
 	invocationsMutex sync.RWMutex
 }
 
-func (fake *ConfigureProductService) ListStagedProducts() (api.StagedProductsOutput, error) {
-	fake.listStagedProductsMutex.Lock()
-	ret, specificReturn := fake.listStagedProductsReturnsOnCall[len(fake.listStagedProductsArgsForCall)]
-	fake.listStagedProductsArgsForCall = append(fake.listStagedProductsArgsForCall, struct{}{})
-	fake.recordInvocation("ListStagedProducts", []interface{}{})
-	fake.listStagedProductsMutex.Unlock()
-	if fake.ListStagedProductsStub != nil {
-		return fake.ListStagedProductsStub()
+func (fake *ConfigureProductService) GetStagedProductJobResourceConfig(productGUID string, jobGUID string) (api.JobProperties, error) {
+	fake.getStagedProductJobResourceConfigMutex.Lock()
+	ret, specificReturn := fake.getStagedProductJobResourceConfigReturnsOnCall[len(fake.getStagedProductJobResourceConfigArgsForCall)]
+	fake.getStagedProductJobResourceConfigArgsForCall = append(fake.getStagedProductJobResourceConfigArgsForCall, struct {
+		productGUID string
+		jobGUID     string
+	}{productGUID, jobGUID})
+	fake.recordInvocation("GetStagedProductJobResourceConfig", []interface{}{productGUID, jobGUID})
+	fake.getStagedProductJobResourceConfigMutex.Unlock()
+	if fake.GetStagedProductJobResourceConfigStub != nil {
+		return fake.GetStagedProductJobResourceConfigStub(productGUID, jobGUID)
 	}
 	if specificReturn {
 		return ret.result1, ret.result2
 	}
-	return fake.listStagedProductsReturns.result1, fake.listStagedProductsReturns.result2
+	return fake.getStagedProductJobResourceConfigReturns.result1, fake.getStagedProductJobResourceConfigReturns.result2
 }
 
-func (fake *ConfigureProductService) ListStagedProductsCallCount() int {
-	fake.listStagedProductsMutex.RLock()
-	defer fake.listStagedProductsMutex.RUnlock()
-	return len(fake.listStagedProductsArgsForCall)
+func (fake *ConfigureProductService) GetStagedProductJobResourceConfigCallCount() int {
+	fake.getStagedProductJobResourceConfigMutex.RLock()
+	defer fake.getStagedProductJobResourceConfigMutex.RUnlock()
+	return len(fake.getStagedProductJobResourceConfigArgsForCall)
 }
 
-func (fake *ConfigureProductService) ListStagedProductsReturns(result1 api.StagedProductsOutput, result2 error) {
-	fake.ListStagedProductsStub = nil
-	fake.listStagedProductsReturns = struct {
-		result1 api.StagedProductsOutput
+func (fake *ConfigureProductService) GetStagedProductJobResourceConfigArgsForCall(i int) (string, string) {
+	fake.getStagedProductJobResourceConfigMutex.RLock()
+	defer fake.getStagedProductJobResourceConfigMutex.RUnlock()
+	return fake.getStagedProductJobResourceConfigArgsForCall[i].productGUID, fake.getStagedProductJobResourceConfigArgsForCall[i].jobGUID
+}
+
+func (fake *ConfigureProductService) GetStagedProductJobResourceConfigReturns(result1 api.JobProperties, result2 error) {
+	fake.GetStagedProductJobResourceConfigStub = nil
+	fake.getStagedProductJobResourceConfigReturns = struct {
+		result1 api.JobProperties
 		result2 error
 	}{result1, result2}
 }
 
-func (fake *ConfigureProductService) ListStagedProductsReturnsOnCall(i int, result1 api.StagedProductsOutput, result2 error) {
-	fake.ListStagedProductsStub = nil
-	if fake.listStagedProductsReturnsOnCall == nil {
-		fake.listStagedProductsReturnsOnCall = make(map[int]struct {
-			result1 api.StagedProductsOutput
+func (fake *ConfigureProductService) GetStagedProductJobResourceConfigReturnsOnCall(i int, result1 api.JobProperties, result2 error) {
+	fake.GetStagedProductJobResourceConfigStub = nil
+	if fake.getStagedProductJobResourceConfigReturnsOnCall == nil {
+		fake.getStagedProductJobResourceConfigReturnsOnCall = make(map[int]struct {
+			result1 api.JobProperties
 			result2 error
 		})
 	}
-	fake.listStagedProductsReturnsOnCall[i] = struct {
-		result1 api.StagedProductsOutput
+	fake.getStagedProductJobResourceConfigReturnsOnCall[i] = struct {
+		result1 api.JobProperties
+		result2 error
+	}{result1, result2}
+}
+
+func (fake *ConfigureProductService) ListInstallations() ([]api.InstallationsServiceOutput, error) {
+	fake.listInstallationsMutex.Lock()
+	ret, specificReturn := fake.listInstallationsReturnsOnCall[len(fake.listInstallationsArgsForCall)]
+	fake.listInstallationsArgsForCall = append(fake.listInstallationsArgsForCall, struct{}{})
+	fake.recordInvocation("ListInstallations", []interface{}{})
+	fake.listInstallationsMutex.Unlock()
+	if fake.ListInstallationsStub != nil {
+		return fake.ListInstallationsStub()
+	}
+	if specificReturn {
+		return ret.result1, ret.result2
+	}
+	return fake.listInstallationsReturns.result1, fake.listInstallationsReturns.result2
+}
+
+func (fake *ConfigureProductService) ListInstallationsCallCount() int {
+	fake.listInstallationsMutex.RLock()
+	defer fake.listInstallationsMutex.RUnlock()
+	return len(fake.listInstallationsArgsForCall)
+}
+
+func (fake *ConfigureProductService) ListInstallationsReturns(result1 []api.InstallationsServiceOutput, result2 error) {
+	fake.ListInstallationsStub = nil
+	fake.listInstallationsReturns = struct {
+		result1 []api.InstallationsServiceOutput
+		result2 error
+	}{result1, result2}
+}
+
+func (fake *ConfigureProductService) ListInstallationsReturnsOnCall(i int, result1 []api.InstallationsServiceOutput, result2 error) {
+	fake.ListInstallationsStub = nil
+	if fake.listInstallationsReturnsOnCall == nil {
+		fake.listInstallationsReturnsOnCall = make(map[int]struct {
+			result1 []api.InstallationsServiceOutput
+			result2 error
+		})
+	}
+	fake.listInstallationsReturnsOnCall[i] = struct {
+		result1 []api.InstallationsServiceOutput
 		result2 error
 	}{result1, result2}
 }
@@ -193,150 +256,96 @@ func (fake *ConfigureProductService) ListStagedProductJobsReturnsOnCall(i int, r
 	}{result1, result2}
 }
 
-func (fake *ConfigureProductService) GetStagedProductJobResourceConfig(productGUID string, jobGUID string) (api.JobProperties, error) {
-	fake.getStagedProductJobResourceConfigMutex.Lock()
-	ret, specificReturn := fake.getStagedProductJobResourceConfigReturnsOnCall[len(fake.getStagedProductJobResourceConfigArgsForCall)]
-	fake.getStagedProductJobResourceConfigArgsForCall = append(fake.getStagedProductJobResourceConfigArgsForCall, struct {
-		productGUID string
-		jobGUID     string
-	}{productGUID, jobGUID})
-	fake.recordInvocation("GetStagedProductJobResourceConfig", []interface{}{productGUID, jobGUID})
-	fake.getStagedProductJobResourceConfigMutex.Unlock()
-	if fake.GetStagedProductJobResourceConfigStub != nil {
-		return fake.GetStagedProductJobResourceConfigStub(productGUID, jobGUID)
+func (fake *ConfigureProductService) ListStagedProducts() (api.StagedProductsOutput, error) {
+	fake.listStagedProductsMutex.Lock()
+	ret, specificReturn := fake.listStagedProductsReturnsOnCall[len(fake.listStagedProductsArgsForCall)]
+	fake.listStagedProductsArgsForCall = append(fake.listStagedProductsArgsForCall, struct{}{})
+	fake.recordInvocation("ListStagedProducts", []interface{}{})
+	fake.listStagedProductsMutex.Unlock()
+	if fake.ListStagedProductsStub != nil {
+		return fake.ListStagedProductsStub()
 	}
 	if specificReturn {
 		return ret.result1, ret.result2
 	}
-	return fake.getStagedProductJobResourceConfigReturns.result1, fake.getStagedProductJobResourceConfigReturns.result2
+	return fake.listStagedProductsReturns.result1, fake.listStagedProductsReturns.result2
 }
 
-func (fake *ConfigureProductService) GetStagedProductJobResourceConfigCallCount() int {
-	fake.getStagedProductJobResourceConfigMutex.RLock()
-	defer fake.getStagedProductJobResourceConfigMutex.RUnlock()
-	return len(fake.getStagedProductJobResourceConfigArgsForCall)
+func (fake *ConfigureProductService) ListStagedProductsCallCount() int {
+	fake.listStagedProductsMutex.RLock()
+	defer fake.listStagedProductsMutex.RUnlock()
+	return len(fake.listStagedProductsArgsForCall)
 }
 
-func (fake *ConfigureProductService) GetStagedProductJobResourceConfigArgsForCall(i int) (string, string) {
-	fake.getStagedProductJobResourceConfigMutex.RLock()
-	defer fake.getStagedProductJobResourceConfigMutex.RUnlock()
-	return fake.getStagedProductJobResourceConfigArgsForCall[i].productGUID, fake.getStagedProductJobResourceConfigArgsForCall[i].jobGUID
-}
-
-func (fake *ConfigureProductService) GetStagedProductJobResourceConfigReturns(result1 api.JobProperties, result2 error) {
-	fake.GetStagedProductJobResourceConfigStub = nil
-	fake.getStagedProductJobResourceConfigReturns = struct {
-		result1 api.JobProperties
+func (fake *ConfigureProductService) ListStagedProductsReturns(result1 api.StagedProductsOutput, result2 error) {
+	fake.ListStagedProductsStub = nil
+	fake.listStagedProductsReturns = struct {
+		result1 api.StagedProductsOutput
 		result2 error
 	}{result1, result2}
 }
 
-func (fake *ConfigureProductService) GetStagedProductJobResourceConfigReturnsOnCall(i int, result1 api.JobProperties, result2 error) {
-	fake.GetStagedProductJobResourceConfigStub = nil
-	if fake.getStagedProductJobResourceConfigReturnsOnCall == nil {
-		fake.getStagedProductJobResourceConfigReturnsOnCall = make(map[int]struct {
-			result1 api.JobProperties
+func (fake *ConfigureProductService) ListStagedProductsReturnsOnCall(i int, result1 api.StagedProductsOutput, result2 error) {
+	fake.ListStagedProductsStub = nil
+	if fake.listStagedProductsReturnsOnCall == nil {
+		fake.listStagedProductsReturnsOnCall = make(map[int]struct {
+			result1 api.StagedProductsOutput
 			result2 error
 		})
 	}
-	fake.getStagedProductJobResourceConfigReturnsOnCall[i] = struct {
-		result1 api.JobProperties
+	fake.listStagedProductsReturnsOnCall[i] = struct {
+		result1 api.StagedProductsOutput
 		result2 error
 	}{result1, result2}
 }
 
-func (fake *ConfigureProductService) UpdateStagedProductProperties(arg1 api.UpdateStagedProductPropertiesInput) error {
-	fake.updateStagedProductPropertiesMutex.Lock()
-	ret, specificReturn := fake.updateStagedProductPropertiesReturnsOnCall[len(fake.updateStagedProductPropertiesArgsForCall)]
-	fake.updateStagedProductPropertiesArgsForCall = append(fake.updateStagedProductPropertiesArgsForCall, struct {
-		arg1 api.UpdateStagedProductPropertiesInput
-	}{arg1})
-	fake.recordInvocation("UpdateStagedProductProperties", []interface{}{arg1})
-	fake.updateStagedProductPropertiesMutex.Unlock()
-	if fake.UpdateStagedProductPropertiesStub != nil {
-		return fake.UpdateStagedProductPropertiesStub(arg1)
+func (fake *ConfigureProductService) UpdateStagedProductErrands(productID string, errandName string, postDeployState interface{}, preDeleteState interface{}) error {
+	fake.updateStagedProductErrandsMutex.Lock()
+	ret, specificReturn := fake.updateStagedProductErrandsReturnsOnCall[len(fake.updateStagedProductErrandsArgsForCall)]
+	fake.updateStagedProductErrandsArgsForCall = append(fake.updateStagedProductErrandsArgsForCall, struct {
+		productID       string
+		errandName      string
+		postDeployState interface{}
+		preDeleteState  interface{}
+	}{productID, errandName, postDeployState, preDeleteState})
+	fake.recordInvocation("UpdateStagedProductErrands", []interface{}{productID, errandName, postDeployState, preDeleteState})
+	fake.updateStagedProductErrandsMutex.Unlock()
+	if fake.UpdateStagedProductErrandsStub != nil {
+		return fake.UpdateStagedProductErrandsStub(productID, errandName, postDeployState, preDeleteState)
 	}
 	if specificReturn {
 		return ret.result1
 	}
-	return fake.updateStagedProductPropertiesReturns.result1
+	return fake.updateStagedProductErrandsReturns.result1
 }
 
-func (fake *ConfigureProductService) UpdateStagedProductPropertiesCallCount() int {
-	fake.updateStagedProductPropertiesMutex.RLock()
-	defer fake.updateStagedProductPropertiesMutex.RUnlock()
-	return len(fake.updateStagedProductPropertiesArgsForCall)
+func (fake *ConfigureProductService) UpdateStagedProductErrandsCallCount() int {
+	fake.updateStagedProductErrandsMutex.RLock()
+	defer fake.updateStagedProductErrandsMutex.RUnlock()
+	return len(fake.updateStagedProductErrandsArgsForCall)
 }
 
-func (fake *ConfigureProductService) UpdateStagedProductPropertiesArgsForCall(i int) api.UpdateStagedProductPropertiesInput {
-	fake.updateStagedProductPropertiesMutex.RLock()
-	defer fake.updateStagedProductPropertiesMutex.RUnlock()
-	return fake.updateStagedProductPropertiesArgsForCall[i].arg1
+func (fake *ConfigureProductService) UpdateStagedProductErrandsArgsForCall(i int) (string, string, interface{}, interface{}) {
+	fake.updateStagedProductErrandsMutex.RLock()
+	defer fake.updateStagedProductErrandsMutex.RUnlock()
+	return fake.updateStagedProductErrandsArgsForCall[i].productID, fake.updateStagedProductErrandsArgsForCall[i].errandName, fake.updateStagedProductErrandsArgsForCall[i].postDeployState, fake.updateStagedProductErrandsArgsForCall[i].preDeleteState
 }
 
-func (fake *ConfigureProductService) UpdateStagedProductPropertiesReturns(result1 error) {
-	fake.UpdateStagedProductPropertiesStub = nil
-	fake.updateStagedProductPropertiesReturns = struct {
+func (fake *ConfigureProductService) UpdateStagedProductErrandsReturns(result1 error) {
+	fake.UpdateStagedProductErrandsStub = nil
+	fake.updateStagedProductErrandsReturns = struct {
 		result1 error
 	}{result1}
 }
 
-func (fake *ConfigureProductService) UpdateStagedProductPropertiesReturnsOnCall(i int, result1 error) {
-	fake.UpdateStagedProductPropertiesStub = nil
-	if fake.updateStagedProductPropertiesReturnsOnCall == nil {
-		fake.updateStagedProductPropertiesReturnsOnCall = make(map[int]struct {
+func (fake *ConfigureProductService) UpdateStagedProductErrandsReturnsOnCall(i int, result1 error) {
+	fake.UpdateStagedProductErrandsStub = nil
+	if fake.updateStagedProductErrandsReturnsOnCall == nil {
+		fake.updateStagedProductErrandsReturnsOnCall = make(map[int]struct {
 			result1 error
 		})
 	}
-	fake.updateStagedProductPropertiesReturnsOnCall[i] = struct {
-		result1 error
-	}{result1}
-}
-
-func (fake *ConfigureProductService) UpdateStagedProductNetworksAndAZs(arg1 api.UpdateStagedProductNetworksAndAZsInput) error {
-	fake.updateStagedProductNetworksAndAZsMutex.Lock()
-	ret, specificReturn := fake.updateStagedProductNetworksAndAZsReturnsOnCall[len(fake.updateStagedProductNetworksAndAZsArgsForCall)]
-	fake.updateStagedProductNetworksAndAZsArgsForCall = append(fake.updateStagedProductNetworksAndAZsArgsForCall, struct {
-		arg1 api.UpdateStagedProductNetworksAndAZsInput
-	}{arg1})
-	fake.recordInvocation("UpdateStagedProductNetworksAndAZs", []interface{}{arg1})
-	fake.updateStagedProductNetworksAndAZsMutex.Unlock()
-	if fake.UpdateStagedProductNetworksAndAZsStub != nil {
-		return fake.UpdateStagedProductNetworksAndAZsStub(arg1)
-	}
-	if specificReturn {
-		return ret.result1
-	}
-	return fake.updateStagedProductNetworksAndAZsReturns.result1
-}
-
-func (fake *ConfigureProductService) UpdateStagedProductNetworksAndAZsCallCount() int {
-	fake.updateStagedProductNetworksAndAZsMutex.RLock()
-	defer fake.updateStagedProductNetworksAndAZsMutex.RUnlock()
-	return len(fake.updateStagedProductNetworksAndAZsArgsForCall)
-}
-
-func (fake *ConfigureProductService) UpdateStagedProductNetworksAndAZsArgsForCall(i int) api.UpdateStagedProductNetworksAndAZsInput {
-	fake.updateStagedProductNetworksAndAZsMutex.RLock()
-	defer fake.updateStagedProductNetworksAndAZsMutex.RUnlock()
-	return fake.updateStagedProductNetworksAndAZsArgsForCall[i].arg1
-}
-
-func (fake *ConfigureProductService) UpdateStagedProductNetworksAndAZsReturns(result1 error) {
-	fake.UpdateStagedProductNetworksAndAZsStub = nil
-	fake.updateStagedProductNetworksAndAZsReturns = struct {
-		result1 error
-	}{result1}
-}
-
-func (fake *ConfigureProductService) UpdateStagedProductNetworksAndAZsReturnsOnCall(i int, result1 error) {
-	fake.UpdateStagedProductNetworksAndAZsStub = nil
-	if fake.updateStagedProductNetworksAndAZsReturnsOnCall == nil {
-		fake.updateStagedProductNetworksAndAZsReturnsOnCall = make(map[int]struct {
-			result1 error
-		})
-	}
-	fake.updateStagedProductNetworksAndAZsReturnsOnCall[i] = struct {
+	fake.updateStagedProductErrandsReturnsOnCall[i] = struct {
 		result1 error
 	}{result1}
 }
@@ -391,53 +400,98 @@ func (fake *ConfigureProductService) UpdateStagedProductJobResourceConfigReturns
 	}{result1}
 }
 
-func (fake *ConfigureProductService) UpdateStagedProductErrands(productID string, errandName string, postDeployState interface{}, preDeleteState interface{}) error {
-	fake.updateStagedProductErrandsMutex.Lock()
-	ret, specificReturn := fake.updateStagedProductErrandsReturnsOnCall[len(fake.updateStagedProductErrandsArgsForCall)]
-	fake.updateStagedProductErrandsArgsForCall = append(fake.updateStagedProductErrandsArgsForCall, struct {
-		productID       string
-		errandName      string
-		postDeployState interface{}
-		preDeleteState  interface{}
-	}{productID, errandName, postDeployState, preDeleteState})
-	fake.recordInvocation("UpdateStagedProductErrands", []interface{}{productID, errandName, postDeployState, preDeleteState})
-	fake.updateStagedProductErrandsMutex.Unlock()
-	if fake.UpdateStagedProductErrandsStub != nil {
-		return fake.UpdateStagedProductErrandsStub(productID, errandName, postDeployState, preDeleteState)
+func (fake *ConfigureProductService) UpdateStagedProductNetworksAndAZs(arg1 api.UpdateStagedProductNetworksAndAZsInput) error {
+	fake.updateStagedProductNetworksAndAZsMutex.Lock()
+	ret, specificReturn := fake.updateStagedProductNetworksAndAZsReturnsOnCall[len(fake.updateStagedProductNetworksAndAZsArgsForCall)]
+	fake.updateStagedProductNetworksAndAZsArgsForCall = append(fake.updateStagedProductNetworksAndAZsArgsForCall, struct {
+		arg1 api.UpdateStagedProductNetworksAndAZsInput
+	}{arg1})
+	fake.recordInvocation("UpdateStagedProductNetworksAndAZs", []interface{}{arg1})
+	fake.updateStagedProductNetworksAndAZsMutex.Unlock()
+	if fake.UpdateStagedProductNetworksAndAZsStub != nil {
+		return fake.UpdateStagedProductNetworksAndAZsStub(arg1)
 	}
 	if specificReturn {
 		return ret.result1
 	}
-	return fake.updateStagedProductErrandsReturns.result1
+	return fake.updateStagedProductNetworksAndAZsReturns.result1
 }
 
-func (fake *ConfigureProductService) UpdateStagedProductErrandsCallCount() int {
-	fake.updateStagedProductErrandsMutex.RLock()
-	defer fake.updateStagedProductErrandsMutex.RUnlock()
-	return len(fake.updateStagedProductErrandsArgsForCall)
+func (fake *ConfigureProductService) UpdateStagedProductNetworksAndAZsCallCount() int {
+	fake.updateStagedProductNetworksAndAZsMutex.RLock()
+	defer fake.updateStagedProductNetworksAndAZsMutex.RUnlock()
+	return len(fake.updateStagedProductNetworksAndAZsArgsForCall)
 }
 
-func (fake *ConfigureProductService) UpdateStagedProductErrandsArgsForCall(i int) (string, string, interface{}, interface{}) {
-	fake.updateStagedProductErrandsMutex.RLock()
-	defer fake.updateStagedProductErrandsMutex.RUnlock()
-	return fake.updateStagedProductErrandsArgsForCall[i].productID, fake.updateStagedProductErrandsArgsForCall[i].errandName, fake.updateStagedProductErrandsArgsForCall[i].postDeployState, fake.updateStagedProductErrandsArgsForCall[i].preDeleteState
+func (fake *ConfigureProductService) UpdateStagedProductNetworksAndAZsArgsForCall(i int) api.UpdateStagedProductNetworksAndAZsInput {
+	fake.updateStagedProductNetworksAndAZsMutex.RLock()
+	defer fake.updateStagedProductNetworksAndAZsMutex.RUnlock()
+	return fake.updateStagedProductNetworksAndAZsArgsForCall[i].arg1
 }
 
-func (fake *ConfigureProductService) UpdateStagedProductErrandsReturns(result1 error) {
-	fake.UpdateStagedProductErrandsStub = nil
-	fake.updateStagedProductErrandsReturns = struct {
+func (fake *ConfigureProductService) UpdateStagedProductNetworksAndAZsReturns(result1 error) {
+	fake.UpdateStagedProductNetworksAndAZsStub = nil
+	fake.updateStagedProductNetworksAndAZsReturns = struct {
 		result1 error
 	}{result1}
 }
 
-func (fake *ConfigureProductService) UpdateStagedProductErrandsReturnsOnCall(i int, result1 error) {
-	fake.UpdateStagedProductErrandsStub = nil
-	if fake.updateStagedProductErrandsReturnsOnCall == nil {
-		fake.updateStagedProductErrandsReturnsOnCall = make(map[int]struct {
+func (fake *ConfigureProductService) UpdateStagedProductNetworksAndAZsReturnsOnCall(i int, result1 error) {
+	fake.UpdateStagedProductNetworksAndAZsStub = nil
+	if fake.updateStagedProductNetworksAndAZsReturnsOnCall == nil {
+		fake.updateStagedProductNetworksAndAZsReturnsOnCall = make(map[int]struct {
 			result1 error
 		})
 	}
-	fake.updateStagedProductErrandsReturnsOnCall[i] = struct {
+	fake.updateStagedProductNetworksAndAZsReturnsOnCall[i] = struct {
+		result1 error
+	}{result1}
+}
+
+func (fake *ConfigureProductService) UpdateStagedProductProperties(arg1 api.UpdateStagedProductPropertiesInput) error {
+	fake.updateStagedProductPropertiesMutex.Lock()
+	ret, specificReturn := fake.updateStagedProductPropertiesReturnsOnCall[len(fake.updateStagedProductPropertiesArgsForCall)]
+	fake.updateStagedProductPropertiesArgsForCall = append(fake.updateStagedProductPropertiesArgsForCall, struct {
+		arg1 api.UpdateStagedProductPropertiesInput
+	}{arg1})
+	fake.recordInvocation("UpdateStagedProductProperties", []interface{}{arg1})
+	fake.updateStagedProductPropertiesMutex.Unlock()
+	if fake.UpdateStagedProductPropertiesStub != nil {
+		return fake.UpdateStagedProductPropertiesStub(arg1)
+	}
+	if specificReturn {
+		return ret.result1
+	}
+	return fake.updateStagedProductPropertiesReturns.result1
+}
+
+func (fake *ConfigureProductService) UpdateStagedProductPropertiesCallCount() int {
+	fake.updateStagedProductPropertiesMutex.RLock()
+	defer fake.updateStagedProductPropertiesMutex.RUnlock()
+	return len(fake.updateStagedProductPropertiesArgsForCall)
+}
+
+func (fake *ConfigureProductService) UpdateStagedProductPropertiesArgsForCall(i int) api.UpdateStagedProductPropertiesInput {
+	fake.updateStagedProductPropertiesMutex.RLock()
+	defer fake.updateStagedProductPropertiesMutex.RUnlock()
+	return fake.updateStagedProductPropertiesArgsForCall[i].arg1
+}
+
+func (fake *ConfigureProductService) UpdateStagedProductPropertiesReturns(result1 error) {
+	fake.UpdateStagedProductPropertiesStub = nil
+	fake.updateStagedProductPropertiesReturns = struct {
+		result1 error
+	}{result1}
+}
+
+func (fake *ConfigureProductService) UpdateStagedProductPropertiesReturnsOnCall(i int, result1 error) {
+	fake.UpdateStagedProductPropertiesStub = nil
+	if fake.updateStagedProductPropertiesReturnsOnCall == nil {
+		fake.updateStagedProductPropertiesReturnsOnCall = make(map[int]struct {
+			result1 error
+		})
+	}
+	fake.updateStagedProductPropertiesReturnsOnCall[i] = struct {
 		result1 error
 	}{result1}
 }
@@ -445,20 +499,22 @@ func (fake *ConfigureProductService) UpdateStagedProductErrandsReturnsOnCall(i i
 func (fake *ConfigureProductService) Invocations() map[string][][]interface{} {
 	fake.invocationsMutex.RLock()
 	defer fake.invocationsMutex.RUnlock()
-	fake.listStagedProductsMutex.RLock()
-	defer fake.listStagedProductsMutex.RUnlock()
-	fake.listStagedProductJobsMutex.RLock()
-	defer fake.listStagedProductJobsMutex.RUnlock()
 	fake.getStagedProductJobResourceConfigMutex.RLock()
 	defer fake.getStagedProductJobResourceConfigMutex.RUnlock()
-	fake.updateStagedProductPropertiesMutex.RLock()
-	defer fake.updateStagedProductPropertiesMutex.RUnlock()
-	fake.updateStagedProductNetworksAndAZsMutex.RLock()
-	defer fake.updateStagedProductNetworksAndAZsMutex.RUnlock()
-	fake.updateStagedProductJobResourceConfigMutex.RLock()
-	defer fake.updateStagedProductJobResourceConfigMutex.RUnlock()
+	fake.listInstallationsMutex.RLock()
+	defer fake.listInstallationsMutex.RUnlock()
+	fake.listStagedProductJobsMutex.RLock()
+	defer fake.listStagedProductJobsMutex.RUnlock()
+	fake.listStagedProductsMutex.RLock()
+	defer fake.listStagedProductsMutex.RUnlock()
 	fake.updateStagedProductErrandsMutex.RLock()
 	defer fake.updateStagedProductErrandsMutex.RUnlock()
+	fake.updateStagedProductJobResourceConfigMutex.RLock()
+	defer fake.updateStagedProductJobResourceConfigMutex.RUnlock()
+	fake.updateStagedProductNetworksAndAZsMutex.RLock()
+	defer fake.updateStagedProductNetworksAndAZsMutex.RUnlock()
+	fake.updateStagedProductPropertiesMutex.RLock()
+	defer fake.updateStagedProductPropertiesMutex.RUnlock()
 	copiedInvocations := map[string][][]interface{}{}
 	for key, value := range fake.invocations {
 		copiedInvocations[key] = value

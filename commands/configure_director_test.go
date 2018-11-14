@@ -43,6 +43,17 @@ var _ = Describe("ConfigureDirector", func() {
 			api.VMExtension{Name: "some_other_vm_extension"},
 		}, nil)
 
+		service.ListInstallationsReturns([]api.InstallationsServiceOutput{
+			{
+				ID:         999,
+				Status:     "succeeded",
+				Logs:       "",
+				StartedAt:  nil,
+				FinishedAt: nil,
+				UserName:   "admin",
+			},
+		}, nil)
+
 		command = commands.NewConfigureDirector(
 			func() []string { return []string{} },
 			service,
@@ -412,6 +423,7 @@ var _ = Describe("ConfigureDirector", func() {
 				Expect(service.DeleteVMExtensionCallCount()).To(Equal(2))
 			})
 		})
+
 		Context("when some director configuration flags are provided", func() {
 			It("only updates the config for the provided flags", func() {
 				err := command.Execute([]string{
@@ -436,6 +448,27 @@ var _ = Describe("ConfigureDirector", func() {
 				Expect(service.UpdateStagedDirectorNetworksCallCount()).To(Equal(0))
 				Expect(service.UpdateStagedDirectorNetworkAndAZCallCount()).To(Equal(0))
 				Expect(service.UpdateStagedDirectorPropertiesCallCount()).To(Equal(0))
+			})
+		})
+
+		Context("when there is a running installation", func() {
+			BeforeEach(func() {
+				service.ListInstallationsReturns([]api.InstallationsServiceOutput{
+					{
+						ID:         999,
+						Status:     "running",
+						Logs:       "",
+						StartedAt:  nil,
+						FinishedAt: nil,
+						UserName:   "admin",
+					},
+				}, nil)
+			})
+
+			It("returns an error", func() {
+				err := command.Execute([]string{})
+				Expect(err).To(MatchError("OpsManager does not allow configuration or staging changes while apply changes are running to prevent data loss for configuration and/or staging changes"))
+				Expect(service.ListInstallationsCallCount()).To(Equal(1))
 			})
 		})
 
